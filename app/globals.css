@@ -20,7 +20,13 @@
 }
 
 body {
-  background: var(--background);
+  background: linear-gradient(
+    180deg,
+    #dde5d3 0%,
+    #f5f8f1 50%,
+    #dde5d3 100%
+  );
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  /* font-family: 'Playfair Display', serif; */
 }
