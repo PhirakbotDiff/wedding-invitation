@@ -26,6 +26,13 @@ interface PageProps {
   params: Promise<{ id: string }>
 }
 
+
+const giftInfo = {
+  accountName: "ឈឿន គង្គាភិរុណភិរក្សបុត្រ",
+  contact: "+855 12 345 678",
+  qrImage: "/cover.png",
+};
+
 export default function InvitePage({ params }: PageProps) {
 
   const [opened, setOpened] = useState(false);
@@ -216,6 +223,49 @@ export default function InvitePage({ params }: PageProps) {
         </motion.div>
 
         <WeddingTimeline />
+
+        {/* 🙏 Wedding Thank You */}
+        <motion.section
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
+          className="mt-20 rounded-[28px] border border-white/45 bg-white/75 p-8 text-center shadow-[0_18px_45px_rgba(0,0,0,0.1)] backdrop-blur-xl"
+        >
+          <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Thank You</p>
+          <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">សូមអរគុណពីដួងចិត្ត</h3>
+          <p className="mx-auto max-w-md leading-8 text-[#6D7456]">
+            សូមអរគុណចំពោះក្តីស្រឡាញ់ ការគាំទ្រ និងការចំណាយពេលវេលាមកចូលរួមថ្ងៃពិសេសរបស់យើង។
+            វត្តមានរបស់អ្នកគឺជាអំណោយដ៏មានតម្លៃបំផុតសម្រាប់គ្រួសារថ្មីរបស់យើង។
+          </p>
+        </motion.section>
+
+        {/* 🎁 Wedding Gift from Attendees */}
+        <motion.section
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
+          className="mt-10 rounded-[28px] border border-white/45 bg-white/75 p-8 shadow-[0_18px_45px_rgba(0,0,0,0.1)] backdrop-blur-xl"
+        >
+          <p className="mb-2 text-center text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Gift from Attendees</p>
+          <h3 className="mb-6 text-center text-3xl text-[#5C6445] leading-relaxed">ជូនពរ និងអំណោយ</h3>
+
+          <div className="mx-auto flex max-w-sm flex-col items-center gap-4 text-center">
+            <div className="rounded-2xl border border-[#DCCBA6] bg-white p-3 shadow-sm">
+              <Image
+                src={giftInfo.qrImage}
+                alt="Gift QR Code"
+                width={180}
+                height={180}
+                className="h-[180px] w-[180px] rounded-xl object-cover"
+              />
+            </div>
+            <p className="text-[#A67C52] text-sm">Scan QR for wedding gift</p>
+            <p className="text-[#5C6445] text-lg">{giftInfo.accountName}</p>
+            <p className="text-[#6D7456]">Contact: {giftInfo.contact}</p>
+          </div>
+        </motion.section>
 
         {/* 💌 Love Story */}
         <Parallax speed={-10}>
