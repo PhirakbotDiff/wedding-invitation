@@ -85,42 +85,42 @@ export default function InvitePage({ params }: PageProps) {
         className="relative z-10 max-w-md mx-auto pt-24 pb-32 px-4"
       >
 
-        {/* 💚 Hero */}
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0 }
-          }}
-          transition={{ duration: 1 }}
-          className="text-center mb-16"
-        >
-          <p className="text-[#7D8663] tracking-[4px] uppercase text-xs mb-4">
-            Wedding Invitation
-          </p>
+      {/* 💚 Wedding Invitation */}
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 30 },
+          visible: { opacity: 1, y: 0 }
+        }}
+        transition={{ duration: 1 }}
+        className="text-center mb-16"
+      >
+        <p className="text-[#7D8663] tracking-[4px] uppercase text-xs mb-4">
+          Wedding Invitation
+        </p>
 
-          <h1 className="text-4xl leading-relaxed text-[#535C39] mb-6">
-            ឈឿន គង្គាភិរុណភិរក្សបុត្រ
-            <br />
-            &
-            <br />
-            ប៉ែន សុម៉ាលី
-          </h1>
+        <h1 className="text-4xl leading-relaxed text-[#535C39] mb-6">
+          ឈឿន គង្គាភិរុណភិរក្សបុត្រ
+          <br />
+          &
+          <br />
+          ប៉ែន សុម៉ាលី
+        </h1>
 
-          <p className="text-[#7D8663] text-lg">
-            Welcome Dear {guest.name} 💚
-          </p>
-        </motion.div>
+        <p className="text-[#7D8663] text-lg">
+          Welcome Dear {guest.name} 💚
+        </p>
+      </motion.div>
 
-        {/* ⏳ Countdown */}
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: { opacity: 1, y: 0 }
-          }}
-          className="mb-16"
-        >
-          <Countdown />
-        </motion.div>
+      {/* ⏳ Countdown */}
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0 }
+        }}
+        className="mb-16"
+      >
+        <Countdown />
+      </motion.div>
 
         {/* 💎 Wedding Card */}
         <motion.div
@@ -211,6 +211,20 @@ export default function InvitePage({ params }: PageProps) {
           </div>
         </motion.div>
 
+        {/* 💌 Love Story */}
+        <Parallax speed={-10}>
+          <div className="mt-32 text-center">
+            <h1 className="text-5xl text-[#535C39] leading-relaxed">
+              Our Love Story
+            </h1>
+
+            <p className="text-[#7D8663] mt-6 leading-8">
+              A beautiful journey begins with love,
+              trust, and endless memories together.
+            </p>
+          </div>
+        </Parallax>
+
         {/* 🖼 Gallery */}
         <motion.div
           variants={{
@@ -230,7 +244,7 @@ export default function InvitePage({ params }: PageProps) {
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
           }}
-          className="mt-20 rounded-[28px] border border-white/45 bg-white/75 p-8 text-center shadow-[0_18px_45px_rgba(0,0,0,0.1)] backdrop-blur-xl"
+          className="mt-20 rounded-[28px] border border-white/45 p-8 text-center backdrop-blur-xl"
         >
           <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Thank You</p>
           <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">សូមអរគុណពីដួងចិត្ត</h3>
@@ -246,7 +260,7 @@ export default function InvitePage({ params }: PageProps) {
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
           }}
-          className="mt-10 rounded-[28px] border border-white/45 bg-white/75 p-8 shadow-[0_18px_45px_rgba(0,0,0,0.1)] backdrop-blur-xl"
+          className="mt-10 rounded-[28px] border border-white/45 backdrop-blur-xl"
         >
           <p className="mb-2 text-center text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Gift from Attendees</p>
           <h3 className="mb-6 text-center text-3xl text-[#5C6445] leading-relaxed">ជូនពរ និងអំណោយ</h3>
@@ -266,20 +280,6 @@ export default function InvitePage({ params }: PageProps) {
             <p className="text-[#6D7456]">Contact: {giftInfo.contact}</p>
           </div>
         </motion.section>
-
-        {/* 💌 Love Story */}
-        <Parallax speed={-10}>
-          <div className="mt-32 text-center">
-            <h1 className="text-5xl text-[#535C39] leading-relaxed">
-              Our Love Story
-            </h1>
-
-            <p className="text-[#7D8663] mt-6 leading-8">
-              A beautiful journey begins with love,
-              trust, and endless memories together.
-            </p>
-          </div>
-        </Parallax>
 
       </motion.div>
     </div>

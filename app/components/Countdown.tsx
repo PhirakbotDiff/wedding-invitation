@@ -36,8 +36,8 @@ export default function Countdown() {
   ];
 
   return (
-    <section className="relative overflow-hidden rounded-[30px] border border-white/50 bg-white/70 px-6 py-8 shadow-[0_18px_45px_rgba(0,0,0,0.09)] backdrop-blur-xl">
-      <div className="absolute inset-x-10 top-0 h-24 rounded-full bg-[#DDE6CC]/45 blur-3xl" />
+    <section className="relative overflow-hidden rounded-[30px] border border-white/50 px-6 py-8 backdrop-blur-xl">
+      <div className="absolute inset-x-10 top-0 h-24 rounded-full blur-3xl" />
 
       <div className="relative z-10 text-center">
         <p className="mb-2 text-xs tracking-[4px] text-[#8A9273] uppercase">Wedding Countdown</p>
@@ -51,7 +51,7 @@ export default function Countdown() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="rounded-2xl border border-[#E6DEC9] bg-white/80 px-3 py-4"
+              className="rounded-2xl border border-[#E6DEC9] px-3 py-4"
             >
               <p className="text-3xl font-light text-[#A67C52]">{String(item.value).padStart(2, "0")}</p>
               <p className="mt-1 text-[11px] tracking-[3px] text-[#8A9273] uppercase">{item.label}</p>

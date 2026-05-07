@@ -53,7 +53,7 @@ const timeline: TimelineItem[] = [
 
 export default function WeddingTimeline() {
   return (
-    <section className="relative overflow-hidden py-28">
+    <section className="relative overflow-hidden py-10">
       {/* 🌿 Ambient Background Glow */}
       <div
         className="
