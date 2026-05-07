@@ -24,7 +24,7 @@ export default function OpeningScreen({
 
       <div className="absolute inset-0 bg-white/45 backdrop-blur-[2px]" />
 
-      <div className="relative z-10 mx-6 w-full max-w-md rounded-[32px] border border-white/50 bg-white/70 px-8 py-12 text-center shadow-[0_20px_55px_rgba(0,0,0,0.14)] backdrop-blur-xl">
+      <div className="relative z-10 mx-6 w-full max-w-md rounded-[32px] border border-white/50 px-8 py-12 text-center">
         <motion.p
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
