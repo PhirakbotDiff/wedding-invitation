@@ -22,6 +22,39 @@ const guests: Record<string, { name: string; allowed: number }> = {
   G002: { name: "Dara", allowed: 1 },
 };
 
+
+
+function SectionFlower({ side = "left" }: { side?: "left" | "right" }) {
+  const positionClass = side === "left"
+    ? "-left-12 top-1/2 -translate-y-1/2"
+    : "-right-12 top-1/2 -translate-y-1/2";
+
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute ${positionClass} opacity-35`}
+    >
+      <svg
+        viewBox="0 0 180 180"
+        className={`h-32 w-32 ${side === "right" ? "-scale-x-100" : ""}`}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g stroke="#9CAF88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M91 166V96" />
+          <path d="M91 120C79 116 73 106 73 94C83 94 90 100 91 111" />
+          <path d="M91 132C103 128 109 118 109 106C99 106 92 112 91 123" />
+          <path d="M90 72C72 72 58 58 58 40C76 40 90 54 90 72Z" />
+          <path d="M90 72C108 72 122 58 122 40C104 40 90 54 90 72Z" />
+          <path d="M72 90C54 90 40 76 40 58C58 58 72 72 72 90Z" />
+          <path d="M108 90C126 90 140 76 140 58C122 58 108 72 108 90Z" />
+          <circle cx="90" cy="82" r="10" fill="#D8C7A0" stroke="#A67C52" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 interface PageProps {
   params: Promise<{ id: string }>
 }
@@ -96,8 +129,9 @@ export default function InvitePage({ params }: PageProps) {
             visible: { opacity: 1, y: 0 }
           }}
           transition={{ duration: 1 }}
-          className="mb-16 rounded-[30px] border border-white/45 px-6 py-10 text-center "
+          className="relative mb-16 overflow-hidden rounded-[30px] border border-white/45 px-6 py-10 text-center"
         >
+          <SectionFlower side="left" />
           <p className="mb-4 text-xs tracking-[5px] text-[#7D8663] uppercase">
             Wedding Invitation
           </p>
@@ -120,8 +154,9 @@ export default function InvitePage({ params }: PageProps) {
           hidden: { opacity: 0, y: 20 },
           visible: { opacity: 1, y: 0 }
         }}
-        className="mb-16"
+        className="relative mb-16 overflow-hidden rounded-[28px] border border-white/40 bg-white/45 p-4"
       >
+        <SectionFlower side="right" />
         <Countdown />
       </motion.div>
 
@@ -147,6 +182,7 @@ export default function InvitePage({ params }: PageProps) {
             <div className="w-[250px] h-[250px] rounded-full" />
           </div>
 
+          <SectionFlower side="left" />
           <div className="relative z-10">
 
             <p className="text-lg text-[#7D8663] text-center mb-3">
@@ -233,7 +269,8 @@ export default function InvitePage({ params }: PageProps) {
 
         {/* 💌 Love Story */}
         <Parallax speed={-10}>
-          <section className="mt-32 rounded-[30px] border border-white/45 bg-white/55 px-8 py-10 backdrop-blur-xl">
+          <section className="relative mt-32 overflow-hidden rounded-[30px] border border-white/45 bg-white/55 px-8 py-10 backdrop-blur-xl">
+            <SectionFlower side="right" />
             <p className="mb-2 text-center text-xs tracking-[4px] text-[#8A9273] uppercase">Our Love Story</p>
             <h2 className="text-center text-5xl text-[#535C39] leading-relaxed">
               Our Love Story
@@ -266,10 +303,11 @@ export default function InvitePage({ params }: PageProps) {
         {/* 💍 Wedding Section */}
         <motion.section
           variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-          className="relative mt-12 rounded-[30px] border border-white/45 bg-white/65 p-8 backdrop-blur-xl overflow-hidden"
+          className="relative mt-12 overflow-hidden rounded-[30px] border border-white/45 bg-white/65 p-8 backdrop-blur-xl"
         >
           <div className="absolute -left-4 top-4 text-3xl text-[#9CAF88]/50">❁</div>
           <div className="absolute -right-3 bottom-4 text-3xl text-[#A67C52]/40">❋</div>
+          <SectionFlower side="left" />
           <p className="text-center text-xs tracking-[4px] text-[#8A9273] uppercase">Wedding</p>
           <h2 className="mt-2 text-center text-4xl text-[#535C39] leading-relaxed">Ceremony Highlights</h2>
           <div className="mt-8 grid gap-4">
@@ -303,8 +341,9 @@ export default function InvitePage({ params }: PageProps) {
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
           }}
-          className="mt-20 rounded-[28px] border border-white/45 p-8 text-center backdrop-blur-xl"
+          className="relative mt-20 overflow-hidden rounded-[28px] border border-white/45 p-8 text-center backdrop-blur-xl"
         >
+          <SectionFlower side="right" />
           <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Thank You</p>
           <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">សូមអរគុណពីដួងចិត្ត</h3>
           <p className="mx-auto max-w-md leading-8 text-[#6D7456]">
@@ -319,8 +358,9 @@ export default function InvitePage({ params }: PageProps) {
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
           }}
-          className="mt-10 rounded-[28px] border border-white/45"
+          className="relative mt-10 overflow-hidden rounded-[28px] border border-white/45"
         >
+          <SectionFlower side="left" />
           <p className="mb-2 text-center text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Gift from Attendees</p>
           <h3 className="mb-6 text-center text-3xl text-[#5C6445] leading-relaxed">ជូនពរ និងអំណោយ</h3>
 
