@@ -126,7 +126,7 @@ export default function WeddingTimeline() {
                 <div className="relative z-20 col-start-1 row-start-1 flex justify-center md:col-start-auto md:row-start-auto">
                   <motion.div
                     whileHover={{ scale: 1.05, rotate: 2 }}
-                    className="flex h-18 w-18 items-center justify-center rounded-full border border-white/50 bg-white/70 shadow-[0_15px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl"
+                    className="flex h-18 w-18 items-center justify-center rounded-full border border-white/50"
                   >
                     <Icon size={34} strokeWidth={1.2} className="text-[#B08B57]" />
                   </motion.div>
