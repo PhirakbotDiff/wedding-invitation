@@ -233,7 +233,7 @@ export default function InvitePage({ params }: PageProps) {
 
         {/* 💌 Love Story */}
         <Parallax speed={-10}>
-          <section className="mt-32 rounded-[30px] border border-white/45 bg-white/55 px-8 py-10 backdrop-blur-xl">
+          <section className="mt-32 rounded-[30px] border border-[#9CAF88]/45 bg-[#9CAF88]/18 px-8 py-10 backdrop-blur-xl">
             <p className="mb-2 text-center text-xs tracking-[4px] text-[#8A9273] uppercase">Our Love Story</p>
             <h2 className="text-center text-5xl text-[#535C39] leading-relaxed">
               Our Love Story
@@ -266,7 +266,7 @@ export default function InvitePage({ params }: PageProps) {
         {/* 💍 Wedding Section */}
         <motion.section
           variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-          className="relative mt-12 rounded-[30px] border border-white/45 bg-white/65 p-8 backdrop-blur-xl overflow-hidden"
+          className="relative mt-12 rounded-[30px] border border-[#9CAF88]/45 bg-[#9CAF88]/20 p-8 backdrop-blur-xl overflow-hidden"
         >
           <div className="absolute -left-4 top-4 text-3xl text-[#9CAF88]/50">❁</div>
           <div className="absolute -right-3 bottom-4 text-3xl text-[#A67C52]/40">❋</div>
@@ -281,6 +281,45 @@ export default function InvitePage({ params }: PageProps) {
               <p className="text-xs tracking-[3px] uppercase text-[#A67C52]">Reception & Toast</p>
               <p className="mt-2 text-[#6D7456]">An evening reception with dinner, music, speeches, and joyful celebration.</p>
             </div>
+          </div>
+        </motion.section>
+
+
+        {/* 📍 Location Mapfographic */}
+        <motion.section
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+          className="relative mt-12 rounded-[30px] border border-[#9CAF88]/40 bg-[#9CAF88]/18 p-6 backdrop-blur-xl overflow-hidden"
+        >
+          <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-[#9CAF88]/20 blur-2xl" />
+          <p className="text-center text-xs tracking-[4px] text-[#6D7456] uppercase">Location</p>
+          <h2 className="mt-2 text-center text-3xl text-[#535C39] leading-relaxed">Venue Map</h2>
+          <p className="mx-auto mt-3 max-w-sm text-center text-[#6D7456]">
+            Phnom Penh Grand Ballroom, Phnom Penh — tap the map for route guidance.
+          </p>
+
+          <div className="mt-6 overflow-hidden rounded-2xl border border-white/60 bg-white/85">
+            <iframe
+              title="Wedding venue map"
+              src="https://www.google.com/maps?q=Phnom+Penh+Grand+Ballroom,+Phnom+Penh&output=embed"
+              className="h-64 w-full"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+
+          <div className="mt-4 grid gap-3 text-[#5C6445] sm:grid-cols-2">
+            <div className="rounded-xl border border-white/60 bg-white/80 p-3">
+              <p className="text-xs tracking-[3px] uppercase text-[#A67C52]">Landmark</p>
+              <p className="mt-1 text-sm">Near central Phnom Penh district and major hotels.</p>
+            </div>
+            <a
+              href="https://maps.google.com/?q=Phnom+Penh+Grand+Ballroom,+Phnom+Penh"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-xl border border-[#9CAF88]/45 bg-[#9CAF88]/20 p-3 text-sm font-medium text-[#4D5536] transition hover:bg-[#9CAF88]/35"
+            >
+              Open in Google Maps →
+            </a>
           </div>
         </motion.section>
 
@@ -303,7 +342,7 @@ export default function InvitePage({ params }: PageProps) {
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
           }}
-          className="mt-20 rounded-[28px] border border-white/45 p-8 text-center backdrop-blur-xl"
+          className="mt-20 rounded-[28px] border border-[#9CAF88]/45 bg-[#9CAF88]/16 p-8 text-center backdrop-blur-xl"
         >
           <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Thank You</p>
           <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">សូមអរគុណពីដួងចិត្ត</h3>
