@@ -131,9 +131,8 @@ export default function InvitePage({ params }: PageProps) {
             relative
             bg-white/75
             backdrop-blur-xl
-            border border-white/40
+            border
             rounded-[32px]
-            shadow-[0_20px_60px_rgba(0,0,0,0.12)]
             p-8
             overflow-hidden
           "
@@ -141,7 +140,7 @@ export default function InvitePage({ params }: PageProps) {
 
           {/* 🌿 Soft Inner Glow */}
           <div className="absolute inset-0 flex justify-center">
-            <div className="w-[250px] h-[250px] bg-[#9CAF88]/10 blur-[100px] rounded-full" />
+            <div className="w-[250px] h-[250px] rounded-full" />
           </div>
 
           <div className="relative z-10">
@@ -218,20 +217,9 @@ export default function InvitePage({ params }: PageProps) {
           </div>
         </motion.div>
 
-        {/* 🖼 Gallery */}
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: { opacity: 1, y: 0 }
-          }}
-          className="mt-24"
-        >
-          <Gallery />
-        </motion.div>
-
         {/* 💌 Love Story */}
         <Parallax speed={-10}>
-          <section className="mt-32 rounded-[30px] border border-white/45 bg-white/70 px-8 py-10 text-center">
+          <section className="mt-32 rounded-[30px] border border-white/45 px-8 py-10 text-center">
             <p className="mb-2 text-xs tracking-[4px] text-[#8A9273] uppercase">Our Love Story</p>
             <h1 className="text-5xl text-[#535C39] leading-relaxed">
               Our Love Story
@@ -285,7 +273,7 @@ export default function InvitePage({ params }: PageProps) {
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
           }}
-          className="mt-10 rounded-[28px] border border-white/45 backdrop-blur-xl"
+          className="mt-10 rounded-[28px] border border-white/45"
         >
           <p className="mb-2 text-center text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Gift from Attendees</p>
           <h3 className="mb-6 text-center text-3xl text-[#5C6445] leading-relaxed">ជូនពរ និងអំណោយ</h3>
