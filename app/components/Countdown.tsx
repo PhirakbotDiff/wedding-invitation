@@ -42,7 +42,7 @@ export default function Countdown() {
   ];
 
   return (
-    <section className="relative overflow-hidden rounded-[30px] border border-white/50 px-6 py-8 backdrop-blur-xl">
+    <section className="relative overflow-hidden rounded-[30px] border border-white/50 px-6 py-8">
       <div className="absolute -left-10 top-6 text-4xl opacity-40">❀</div>
       <div className="absolute -right-4 top-1/2 text-3xl opacity-40">❦</div>
       <div className="absolute inset-x-10 top-0 h-24 rounded-full blur-3xl" />
