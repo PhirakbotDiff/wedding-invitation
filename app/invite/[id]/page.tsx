@@ -69,6 +69,10 @@ export default function InvitePage({ params }: PageProps) {
       <FloralFrame />
       <BackgroundMusic />
       <FloatingFlowers />
+      <div className="absolute left-3 top-40 z-10 text-3xl text-[#9CAF88]/60">❁</div>
+      <div className="absolute right-5 top-[28rem] z-10 -rotate-12 text-4xl text-[#A67C52]/40">❋</div>
+      <div className="absolute left-2 bottom-40 z-10 rotate-12 text-4xl text-[#7D8663]/40">❀</div>
+      <div className="absolute right-3 bottom-60 z-10 text-3xl text-[#9CAF88]/50">❧</div>
 
       {/* 🌟 Main Content */}
       <motion.div
@@ -262,8 +266,10 @@ export default function InvitePage({ params }: PageProps) {
         {/* 💍 Wedding Section */}
         <motion.section
           variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-          className="mt-12 rounded-[30px] border border-white/45 bg-white/65 p-8 backdrop-blur-xl"
+          className="relative mt-12 rounded-[30px] border border-white/45 bg-white/65 p-8 backdrop-blur-xl overflow-hidden"
         >
+          <div className="absolute -left-4 top-4 text-3xl text-[#9CAF88]/50">❁</div>
+          <div className="absolute -right-3 bottom-4 text-3xl text-[#A67C52]/40">❋</div>
           <p className="text-center text-xs tracking-[4px] text-[#8A9273] uppercase">Wedding</p>
           <h2 className="mt-2 text-center text-4xl text-[#535C39] leading-relaxed">Ceremony Highlights</h2>
           <div className="mt-8 grid gap-4">
