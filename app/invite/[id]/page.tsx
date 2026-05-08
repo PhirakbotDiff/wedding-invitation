@@ -155,10 +155,20 @@ export default function InvitePage({ params }: PageProps) {
 
             <p className="mb-7 text-center text-[#7D8663]">We are honored to celebrate this joyful day with you.</p>
 
-            <div className="space-y-4 text-center text-[#6D7456]">
-              <p>📅 16 January 2027</p>
-              <p>⏰ 3:00 PM</p>
-              <p>📍 Phnom Penh</p>
+            <div className="grid gap-4 text-[#6D7456] sm:grid-cols-2">
+              <div className="rounded-2xl border border-[#E8E2D2] bg-white/80 p-4 text-left">
+                <p className="text-xs tracking-[3px] uppercase text-[#A67C52]">Date</p>
+                <p className="mt-2 text-lg">Saturday, 16 January 2027</p>
+              </div>
+              <div className="rounded-2xl border border-[#E8E2D2] bg-white/80 p-4 text-left">
+                <p className="text-xs tracking-[3px] uppercase text-[#A67C52]">Time</p>
+                <p className="mt-2 text-lg">Reception starts at 3:00 PM</p>
+              </div>
+              <div className="rounded-2xl border border-[#E8E2D2] bg-white/80 p-4 text-left sm:col-span-2">
+                <p className="text-xs tracking-[3px] uppercase text-[#A67C52]">Venue</p>
+                <p className="mt-2 text-lg">Phnom Penh Grand Ballroom, Phnom Penh</p>
+                <p className="mt-1 text-sm text-[#8A9273]">Dress code: Elegant Traditional / Formal Attire</p>
+              </div>
             </div>
 
             {/* RSVP */}
@@ -219,24 +229,54 @@ export default function InvitePage({ params }: PageProps) {
 
         {/* 💌 Love Story */}
         <Parallax speed={-10}>
-          <section className="mt-32 rounded-[30px] border border-white/45 px-8 py-10 text-center">
-            <p className="mb-2 text-xs tracking-[4px] text-[#8A9273] uppercase">Our Love Story</p>
-            <h1 className="text-5xl text-[#535C39] leading-relaxed">
+          <section className="mt-32 rounded-[30px] border border-white/45 bg-white/55 px-8 py-10 backdrop-blur-xl">
+            <p className="mb-2 text-center text-xs tracking-[4px] text-[#8A9273] uppercase">Our Love Story</p>
+            <h2 className="text-center text-5xl text-[#535C39] leading-relaxed">
               Our Love Story
-            </h1>
+            </h2>
 
-            <p className="mt-6 leading-8 text-[#7D8663]">
-              A beautiful journey began with friendship,
-              grew with trust, and blossoms today with endless love.
+            <p className="mx-auto mt-5 max-w-md text-center leading-8 text-[#7D8663]">
+              A beautiful journey began with friendship, grew with trust, and today blossoms into a lifetime promise.
             </p>
 
-            <div className="mt-7 space-y-3 text-[#6D7456]">
-              <p>2018 • We first met and became close friends.</p>
-              <p>2022 • We promised to walk every season together.</p>
-              <p>2027 • We begin our forever as husband and wife.</p>
+            <div className="relative mt-10 space-y-6 pl-8">
+              <div className="absolute bottom-0 left-2 top-1 w-px bg-gradient-to-b from-[#D8C7A0]/20 via-[#D8C7A0] to-[#D8C7A0]/20" />
+
+              {[
+                { year: "2018", title: "First Meeting", desc: "We met as friends and discovered a calm joy in every conversation." },
+                { year: "2020", title: "Growing Together", desc: "From shared dreams to difficult days, we learned what commitment truly means." },
+                { year: "2022", title: "Promise of Forever", desc: "We promised to walk through every season hand in hand with faith and kindness." },
+                { year: "2027", title: "Wedding Day", desc: "With grateful hearts, we celebrate the beginning of our forever as husband and wife." },
+              ].map((item) => (
+                <div key={item.year} className="relative rounded-2xl border border-white/60 bg-white/75 p-5 shadow-[0_12px_35px_rgba(0,0,0,0.07)]">
+                  <span className="absolute -left-[1.95rem] top-6 h-4 w-4 rounded-full border-2 border-[#D8C7A0] bg-white" />
+                  <p className="text-xs tracking-[3px] text-[#A67C52] uppercase">{item.year}</p>
+                  <h3 className="mt-2 text-2xl leading-relaxed text-[#5C6445]">{item.title}</h3>
+                  <p className="mt-2 text-[#6D7456]">{item.desc}</p>
+                </div>
+              ))}
             </div>
           </section>
         </Parallax>
+
+        {/* 💍 Wedding Section */}
+        <motion.section
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+          className="mt-12 rounded-[30px] border border-white/45 bg-white/65 p-8 backdrop-blur-xl"
+        >
+          <p className="text-center text-xs tracking-[4px] text-[#8A9273] uppercase">Wedding</p>
+          <h2 className="mt-2 text-center text-4xl text-[#535C39] leading-relaxed">Ceremony Highlights</h2>
+          <div className="mt-8 grid gap-4">
+            <div className="rounded-2xl border border-[#E8E2D2] bg-white/80 p-4">
+              <p className="text-xs tracking-[3px] uppercase text-[#A67C52]">Blessing Ceremony</p>
+              <p className="mt-2 text-[#6D7456]">Traditional blessing and family honoring ceremony in the morning.</p>
+            </div>
+            <div className="rounded-2xl border border-[#E8E2D2] bg-white/80 p-4">
+              <p className="text-xs tracking-[3px] uppercase text-[#A67C52]">Reception & Toast</p>
+              <p className="mt-2 text-[#6D7456]">An evening reception with dinner, music, speeches, and joyful celebration.</p>
+            </div>
+          </div>
+        </motion.section>
 
         {/* 🖼 Gallery */}
         <motion.div
