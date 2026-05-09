@@ -154,7 +154,7 @@ export default function InvitePage({ params }: PageProps) {
           hidden: { opacity: 0, y: 20 },
           visible: { opacity: 1, y: 0 }
         }}
-        className="relative mb-16 overflow-hidden rounded-[28px] border border-white/40 bg-white/45 p-4"
+        className="relative mb-16 overflow-hidden rounded-[28px] border border-white/40 p-4"
       >
         <SectionFlower side="right" />
         <Countdown />
@@ -168,8 +168,6 @@ export default function InvitePage({ params }: PageProps) {
           }}
           className="
             relative
-            bg-white/75
-            backdrop-blur-xl
             border
             rounded-[32px]
             p-8
@@ -269,7 +267,7 @@ export default function InvitePage({ params }: PageProps) {
 
         {/* 💌 Love Story */}
         <Parallax speed={-10}>
-          <section className="relative mt-32 overflow-hidden rounded-[30px] border border-white/45 bg-white/55 px-8 py-10 backdrop-blur-xl">
+          <section className="relative mt-32 overflow-hidden rounded-[30px] border border-white/45 px-8 py-10">
             <SectionFlower side="right" />
             <p className="mb-2 text-center text-xs tracking-[4px] text-[#8A9273] uppercase">Our Love Story</p>
             <h2 className="text-center text-5xl text-[#535C39] leading-relaxed">
@@ -303,7 +301,7 @@ export default function InvitePage({ params }: PageProps) {
         {/* 💍 Wedding Section */}
         <motion.section
           variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-          className="relative mt-12 overflow-hidden rounded-[30px] border border-white/45 bg-white/65 p-8 backdrop-blur-xl"
+          className="relative mt-12 overflow-hidden rounded-[30px] border border-white/45 p-8"
         >
           <div className="absolute -left-4 top-4 text-3xl text-[#9CAF88]/50">❁</div>
           <div className="absolute -right-3 bottom-4 text-3xl text-[#A67C52]/40">❋</div>
