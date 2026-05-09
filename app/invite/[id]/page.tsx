@@ -10,6 +10,7 @@ import FloatingFlowers from "@/app/components/FloatingFlowers";
 import Gallery from "@/app/components/Gallery";
 import FloralFrame from "@/app/components/FloralFrame";
 import WeddingTimeline from "@/app/components/WeddingTimeline";
+import ClassicKhmerInvitationCard from "@/app/components/ClassicKhmerInvitationCard";
 
 import { motion } from "framer-motion";
 import { Parallax } from "react-scroll-parallax";
@@ -146,6 +147,16 @@ export default function InvitePage({ params }: PageProps) {
 
           <p className="text-sm tracking-[3px] text-[#8A9273] uppercase">Together with our families</p>
           <p className="mt-4 text-lg text-[#6D7456]">Welcome Dear {guest.name} 💚</p>
+        </motion.div>
+
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
+          className="mb-14"
+        >
+          <ClassicKhmerInvitationCard guestName={guest.name} />
         </motion.div>
 
       {/* ⏳ Countdown */}
