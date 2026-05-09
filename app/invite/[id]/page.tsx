@@ -137,13 +137,13 @@ export default function InvitePage({ params }: PageProps) {
             Wedding Invitation
           </p>
 
-          <h1 className="mb-4 text-4xl leading-relaxed text-[#535C39]">
+          <h3 className="mb-4 text-2xl leading-relaxed text-[#535C39]">
             ឈឿន គង្គាភិរុណភិរក្សបុត្រ
             <br />
             <span className="text-[#A67C52]">&</span>
             <br />
             ប៉ែន សុម៉ាលី
-          </h1>
+          </h3>
 
           <p className="text-sm tracking-[3px] text-[#8A9273] uppercase">Together with our families</p>
           <p className="mt-4 text-lg text-[#6D7456]">Welcome Dear {guest.name} 💚</p>
@@ -154,7 +154,7 @@ export default function InvitePage({ params }: PageProps) {
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
           }}
-          className="mb-14"
+          className="mb-2"
         >
           <ClassicKhmerInvitationCard guestName={guest.name} />
         </motion.div>
@@ -278,10 +278,9 @@ export default function InvitePage({ params }: PageProps) {
 
         {/* 💌 Love Story */}
         <Parallax speed={-10}>
-          <section className="relative mt-32 overflow-hidden rounded-[30px] border border-white/45 px-8 py-10">
+          <section className="relative mt-10 overflow-hidden rounded-[30px] border border-white/45 px-8 py-10">
             <SectionFlower side="right" />
-            <p className="mb-2 text-center text-xs tracking-[4px] text-[#8A9273] uppercase">Our Love Story</p>
-            <h2 className="text-center text-5xl text-[#535C39] leading-relaxed">
+            <h2 className="text-center text-3xl text-[#535C39] leading-relaxed">
               Our Love Story
             </h2>
 
@@ -312,12 +311,11 @@ export default function InvitePage({ params }: PageProps) {
         {/* 💍 Wedding Section */}
         <motion.section
           variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-          className="relative mt-12 overflow-hidden rounded-[30px] border border-white/45 p-8"
+          className="relative mt-10 overflow-hidden rounded-[30px] border border-white/45 p-8"
         >
           <div className="absolute -left-4 top-4 text-3xl text-[#9CAF88]/50">❁</div>
           <div className="absolute -right-3 bottom-4 text-3xl text-[#A67C52]/40">❋</div>
-          <SectionFlower side="left" />
-          <p className="text-center text-xs tracking-[4px] text-[#8A9273] uppercase">Wedding</p>
+          <SectionFlower side="left" /> 
           <h2 className="mt-2 text-center text-4xl text-[#535C39] leading-relaxed">Ceremony Highlights</h2>
           <div className="mt-8 grid gap-4">
             <div className="rounded-2xl border border-[#E8E2D2] bg-white/80 p-4">

@@ -10,8 +10,8 @@ const images = [
 
 export default function Gallery() {
   return (
-    <section className="py-20 px-6">
-      <h2 className="text-5xl text-[#535C39] text-center leading-relaxed mb-12">
+    <section className="py-10 px-6">
+      <h2 className="text-3xl text-[#535C39] text-center leading-relaxed mb-12">
         Pre-Wedding Moments
       </h2>
 
