@@ -11,6 +11,7 @@ import Gallery from "@/app/components/Gallery";
 import FloralFrame from "@/app/components/FloralFrame";
 import WeddingTimeline from "@/app/components/WeddingTimeline";
 import ClassicKhmerInvitationCard from "@/app/components/ClassicKhmerInvitationCard";
+import Location from "@/app/components/Location";
 
 import { motion } from "framer-motion";
 import { Parallax } from "react-scroll-parallax";
@@ -341,6 +342,8 @@ export default function InvitePage({ params }: PageProps) {
         </motion.div>
 
         <WeddingTimeline />
+
+        <Location />
 
         {/* 🙏 Wedding Thank You */}
         <motion.section
