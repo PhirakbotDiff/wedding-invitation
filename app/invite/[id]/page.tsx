@@ -11,6 +11,7 @@ import Gallery from "@/app/components/Gallery";
 import FloralFrame from "@/app/components/FloralFrame";
 import WeddingTimeline from "@/app/components/WeddingTimeline";
 import ClassicKhmerInvitationCard from "@/app/components/ClassicKhmerInvitationCard";
+import Location from "@/app/components/Location";
 
 import { motion } from "framer-motion";
 import { Parallax } from "react-scroll-parallax";
@@ -70,13 +71,12 @@ const giftInfo = {
 export default function InvitePage({ params }: PageProps) {
 
   const [opened, setOpened] = useState(false);
-
-  if (!opened) {
-    return <OpeningScreen onOpen={() => setOpened(true)} />;
-  }
-
   const { id } = React.use(params);
   const guest = guests[id];
+
+  if (!opened) {
+    return <OpeningScreen onOpen={() => setOpened(true)} guestName={guest?.name} />;
+  }
 
   if (!guest) return notFound();
 
@@ -144,6 +144,17 @@ export default function InvitePage({ params }: PageProps) {
             <br />
             ប៉ែន សុម៉ាលី
           </h3>
+
+          <div className="mx-auto mb-5 w-full max-w-[240px] overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-1 shadow-[0_12px_35px_rgba(0,0,0,0.12)]">
+            <Image
+              src="/cover.png"
+              alt="Couple portrait"
+              width={480}
+              height={320}
+              className="h-auto w-full rounded-xl object-cover"
+              priority={false}
+            />
+          </div>
 
           <p className="text-sm tracking-[3px] text-[#8A9273] uppercase">Together with our families</p>
           <p className="mt-4 text-lg text-[#6D7456]">Welcome Dear {guest.name} 💚</p>
@@ -341,6 +352,8 @@ export default function InvitePage({ params }: PageProps) {
         </motion.div>
 
         <WeddingTimeline />
+
+        <Location />
 
         {/* 🙏 Wedding Thank You */}
         <motion.section
