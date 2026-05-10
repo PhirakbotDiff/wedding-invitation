@@ -146,6 +146,17 @@ export default function InvitePage({ params }: PageProps) {
             ប៉ែន សុម៉ាលី
           </h3>
 
+          <div className="mx-auto mb-5 w-full max-w-[240px] overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-1 shadow-[0_12px_35px_rgba(0,0,0,0.12)]">
+            <Image
+              src="/cover.png"
+              alt="Couple portrait"
+              width={480}
+              height={320}
+              className="h-auto w-full rounded-xl object-cover"
+              priority={false}
+            />
+          </div>
+
           <p className="text-sm tracking-[3px] text-[#8A9273] uppercase">Together with our families</p>
           <p className="mt-4 text-lg text-[#6D7456]">Welcome Dear {guest.name} 💚</p>
         </motion.div>
