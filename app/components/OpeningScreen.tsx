@@ -43,6 +43,22 @@ export default function OpeningScreen({
           Phirakbot &amp; Maly
         </motion.h1>
 
+        <motion.div
+          initial={{ scale: 0.92, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.1 }}
+          className="mx-auto mb-6 h-32 w-32 overflow-hidden rounded-full border-4 border-white/80 shadow-[0_10px_25px_rgba(0,0,0,0.2)]"
+        >
+          <Image
+            src="/cover.png"
+            alt="Bride and groom"
+            width={128}
+            height={128}
+            className="h-full w-full object-cover"
+            priority
+          />
+        </motion.div>
+
         <motion.p
           initial={{ y: 24, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
