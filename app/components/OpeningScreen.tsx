@@ -76,7 +76,7 @@ export default function OpeningScreen({
           transition={{ duration: 0.9, delay: 0.15 }}
           className="mb-2 text-[#6D7456]"
         >
-          Dear <span className="text-[#535C39]">{guestName ?? "Guest"}</span>, you are warmly invited.
+          Dear <span className="text-[#535C39] text-xl">{guestName ?? "Guest"}</span>, you are warmly invited.
         </motion.p>
 
         <motion.p

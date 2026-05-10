@@ -18,11 +18,7 @@ import { Parallax } from "react-scroll-parallax";
 
 import Image from "next/image";
 import { notFound } from "next/navigation";
-
-const guests: Record<string, { name: string; allowed: number }> = {
-  G001: { name: "Sokha", allowed: 2 },
-  G002: { name: "Dara", allowed: 1 },
-};
+import { getGuestByInviteId } from "@/app/lib/guests";
 
 
 
@@ -72,13 +68,13 @@ export default function InvitePage({ params }: PageProps) {
 
   const [opened, setOpened] = useState(false);
   const { id } = React.use(params);
-  const guest = guests[id];
-
-  if (!opened) {
-    return <OpeningScreen onOpen={() => setOpened(true)} guestName={guest?.name} />;
-  }
+  const guest = getGuestByInviteId(id);
 
   if (!guest) return notFound();
+
+  if (!opened) {
+    return <OpeningScreen onOpen={() => setOpened(true)} guestName={guest.name} />;
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden">
