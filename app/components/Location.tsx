@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+const MAP_LINK = "https://maps.app.goo.gl/xUz89bCcNzkkYVHA6";
+
 export default function Location() {
   return (
     <section className="relative mt-10 overflow-hidden rounded-[30px] border border-white/45 p-6">
@@ -20,6 +22,15 @@ export default function Location() {
             priority={false}
           />
         </div>
+
+        <a
+          href={MAP_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-[#7E9270] px-4 py-3 text-sm font-medium text-white transition hover:bg-[#6D8160]"
+        >
+          Open Google Maps Location
+        </a>
       </div>
     </section>
   );
