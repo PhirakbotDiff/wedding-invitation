@@ -40,7 +40,7 @@ export default function OpeningScreen({
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
-          className="mb-4 text-4xl text-[#535C39] drop-shadow-sm"
+          className="mb-4 text-3xl text-[#535C39] drop-shadow-sm"
         >
           Phirakbot &amp; Maly
         </motion.h1>
