@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 
 export default function OpeningScreen({
   onOpen,
+  guestName,
 }: {
   onOpen: () => void;
+  guestName?: string;
 }) {
   return (
     <motion.div
@@ -44,25 +46,43 @@ export default function OpeningScreen({
         </motion.h1>
 
         <motion.div
-          initial={{ scale: 0.92, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.9, delay: 0.1 }}
-          className="mx-auto mb-6 h-32 w-32 overflow-hidden rounded-full border-4 border-white/80 shadow-[0_10px_25px_rgba(0,0,0,0.2)]"
+          initial={{ scale: 0.88, opacity: 0, rotate: -8 }}
+          animate={{
+            scale: [0.95, 1.03, 1],
+            opacity: 1,
+            rotate: [-6, 4, 0],
+            borderRadius: [
+              "28% 72% 65% 35% / 35% 35% 65% 65%",
+              "63% 37% 42% 58% / 47% 64% 36% 53%",
+              "42% 58% 59% 41% / 46% 42% 58% 54%",
+            ],
+          }}
+          transition={{ duration: 1.6, delay: 0.1, ease: "easeOut" }}
+          className="mx-auto mb-6 h-40 w-40 overflow-hidden border-4 border-white/80 shadow-[0_18px_40px_rgba(0,0,0,0.22)]"
         >
           <Image
             src="/cover.png"
             alt="Bride and groom"
-            width={128}
-            height={128}
+            width={160}
+            height={160}
             className="h-full w-full object-cover"
             priority
           />
         </motion.div>
 
         <motion.p
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.15 }}
+          className="mb-2 text-[#6D7456]"
+        >
+          Dear <span className="text-[#535C39]">{guestName ?? "Guest"}</span>, you are warmly invited.
+        </motion.p>
+
+        <motion.p
           initial={{ y: 24, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.15 }}
+          transition={{ duration: 1, delay: 0.22 }}
           className="mb-8 text-[#6D7456]"
         >
           Save the Date • <span className="text-[#A67C52]">16/Jan/2027</span>

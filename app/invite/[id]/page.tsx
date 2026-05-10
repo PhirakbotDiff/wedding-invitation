@@ -71,13 +71,12 @@ const giftInfo = {
 export default function InvitePage({ params }: PageProps) {
 
   const [opened, setOpened] = useState(false);
-
-  if (!opened) {
-    return <OpeningScreen onOpen={() => setOpened(true)} />;
-  }
-
   const { id } = React.use(params);
   const guest = guests[id];
+
+  if (!opened) {
+    return <OpeningScreen onOpen={() => setOpened(true)} guestName={guest?.name} />;
+  }
 
   if (!guest) return notFound();
 
