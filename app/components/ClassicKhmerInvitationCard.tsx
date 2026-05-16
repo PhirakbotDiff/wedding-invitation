@@ -8,7 +8,8 @@ interface ClassicKhmerInvitationCardProps {
 
 export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerInvitationCardProps) {
   return (
-    <section className="relative mx-auto w-full max-w-sm">
+    <section className="relative mx-auto w-full max-w-sm pt-16">
+      
       <div className="absolute right-4 top-4 z-20 rounded-xl bg-white/90 p-2 text-[#8b6b42] shadow-md">
         <Volume2 className="h-5 w-5" />
       </div>
@@ -21,6 +22,19 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
 
           {/* <h2 className="mt-3 text-3xl leading-tight text-[#7a5a34]">សិរីមង្គលអាពាហ៍ពិពាហ៍</h2> */}
           <p className="text-2xl text-[#6d5130]">មានកិត្តិយសសូមគោរពអញ្ជើញ</p>
+
+          <div className="mt-4 grid grid-cols-2 gap-3 text-[#6d5130]">
+            <div className="rounded-xl bg-white/50 px-3 py-2">
+              <p className="text-xs font-medium">គ្រួសារកូនប្រុស</p>
+              <p className="mt-1 text-sm">ឪពុក៖ ឈឿន សុភាព</p>
+              <p className="text-sm">ម្ដាយ៖ ឡុង សុជាតា</p>
+            </div>
+            <div className="rounded-xl bg-white/50 px-3 py-2">
+              <p className="text-xs font-medium">គ្រួសារកូនស្រី</p>
+              <p className="mt-1 text-sm">ឪពុក៖ ប៉ែន សុខា</p>
+              <p className="text-sm">ម្ដាយ៖ ឆាយ សុភា</p>
+            </div>
+          </div>
 
           <p className="mt-6 mb-6 text-sm leading-7 text-[#695338]">
             ឯកឧត្តម អ្នកឧកញ៉ា លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា អញ្ជើញចូលរួមជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធពរជ័យសិរីមង្គលក្នុងពិធីរៀបអាពាហ៍ពិពាហ៍កូនប្រុសស្រីរបស់យើងខ្ញុំ
@@ -50,7 +64,27 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
               priority
             />
           </motion.div>
-          
+
+          <div className="mb-6 text-[#7a5a34]">
+            <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-center">
+              <p className="text-base font-medium">កូនប្រុសនាម</p>
+              <motion.span
+                aria-label="heart"
+                initial={{ scale: 0.9, opacity: 0.7 }}
+                animate={{ scale: [1, 1.25, 1], opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                className="text-2xl text-rose-500"
+              >
+                ♥
+              </motion.span>
+              <p className="text-base font-medium">កូនស្រីនាម</p>
+            </div>
+            <div className="mt-1 grid grid-cols-2 gap-3 text-center">
+              <p className="text-md font-semibold leading-relaxed">ឈឿន គង្គាភិរុណភិរក្សបុត្រ</p>
+              <p className="text-lg font-semibold leading-relaxed">ប៉ែន សុមាលី</p>
+            </div>
+          </div>
+
           <p className="mt-6 text-sm leading-7 text-[#695338]">
             ដែលនឹងប្រារពនៅ ថ្ងៃអាទិត្យ ទី២៥ ខែមករា ឆ្នាំ២០២៦ ត្រូវនឹងថ្ងៃ ៧កើត ខែមាឃ សប្តស័ក ព.ស. ២៥៦៩ នៅវេលាម៉ោង ៥ល្ងាច នៅគេហដ្ឋានខាងស្រី ដោយមេត្រីភាព។
           </p>
@@ -58,7 +92,6 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
           <div className="mt-7 space-y-2 text-[#54432e]">
             <p className="text-sm">ថ្ងៃសៅរ៍ ទី១៦ ខែមករា ឆ្នាំ២០២៧</p>
             <p className="text-sm">ចាប់ផ្តើម ៥:០០ ល្ងាច</p>
-            <p className="text-sm">Phnom Penh Grand Ballroom</p>
           </div>
 
         </div>
