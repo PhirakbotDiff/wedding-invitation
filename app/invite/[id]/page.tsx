@@ -152,7 +152,7 @@ export default function InvitePage({ params }: PageProps) {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-x-hidden">
 
       {/* 🌿 Background */}
       <Image
