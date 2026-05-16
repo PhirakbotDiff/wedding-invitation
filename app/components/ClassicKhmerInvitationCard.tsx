@@ -9,55 +9,7 @@ interface ClassicKhmerInvitationCardProps {
 export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerInvitationCardProps) {
   return (
     <section className="relative mx-auto w-full max-w-sm pt-16">
-      <div className="pointer-events-none absolute inset-x-2 top-2 z-30">
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, ease: "easeOut" }}
-          className="relative overflow-hidden rounded-2xl border border-white/60 bg-gradient-to-r from-emerald-100/65 via-white/65 to-amber-100/65 px-4 py-3 shadow-[0_12px_30px_rgba(54,83,65,0.2)] backdrop-blur-md"
-        >
-          <motion.div
-            aria-hidden
-            animate={{ x: [0, 10, 0], y: [0, -2, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-6 -top-7 h-16 w-16 rounded-full bg-emerald-200/50 blur-xl"
-          />
-          <motion.div
-            aria-hidden
-            animate={{ x: [0, -12, 0], y: [0, 3, 0] }}
-            transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -right-4 -bottom-8 h-20 w-20 rounded-full bg-amber-200/40 blur-xl"
-          />
-
-          <div className="relative grid grid-cols-[auto_1fr_auto] items-center gap-2">
-            <motion.svg
-              viewBox="0 0 80 60"
-              className="h-8 w-10 text-emerald-700/80"
-              animate={{ y: [0, -2, 0], rotate: [0, -2, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <path d="M7 42c16-7 25-16 31-31" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-              <path d="M21 29c6-1 10-4 13-10" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-              <ellipse cx="24" cy="27" rx="4" ry="6" fill="currentColor" opacity=".35"/>
-              <ellipse cx="33" cy="17" rx="3" ry="5" fill="currentColor" opacity=".35"/>
-            </motion.svg>
-
-            <p className="text-center text-xs font-medium tracking-[0.2em] text-[#6f5d42]">NATURE BLOOM WEDDING</p>
-
-            <motion.svg
-              viewBox="0 0 80 60"
-              className="h-8 w-10 text-rose-700/70"
-              animate={{ y: [0, -3, 0], rotate: [0, 2, 0] }}
-              transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <path d="M72 42C56 35 47 26 41 11" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-              <circle cx="50" cy="24" r="5" fill="currentColor" opacity=".32"/>
-              <circle cx="44" cy="17" r="4" fill="currentColor" opacity=".25"/>
-              <path d="M58 31c-5 0-9-3-12-8" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-            </motion.svg>
-          </div>
-        </motion.div>
-      </div>
+      
       <div className="absolute right-4 top-4 z-20 rounded-xl bg-white/90 p-2 text-[#8b6b42] shadow-md">
         <Volume2 className="h-5 w-5" />
       </div>
@@ -128,7 +80,7 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
               <p className="text-base font-medium">កូនស្រីនាម</p>
             </div>
             <div className="mt-1 grid grid-cols-2 gap-3 text-center">
-              <p className="text-lg font-semibold leading-relaxed">ឈឿន គង្គាភិរុណភិរក្សបុត្រ</p>
+              <p className="text-md font-semibold leading-relaxed">ឈឿន គង្គាភិរុណភិរក្សបុត្រ</p>
               <p className="text-lg font-semibold leading-relaxed">ប៉ែន សុមាលី</p>
             </div>
           </div>
@@ -140,7 +92,6 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
           <div className="mt-7 space-y-2 text-[#54432e]">
             <p className="text-sm">ថ្ងៃសៅរ៍ ទី១៦ ខែមករា ឆ្នាំ២០២៧</p>
             <p className="text-sm">ចាប់ផ្តើម ៥:០០ ល្ងាច</p>
-            <p className="text-sm">Phnom Penh Grand Ballroom</p>
           </div>
 
         </div>
