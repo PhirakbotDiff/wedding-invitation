@@ -53,6 +53,81 @@ function SectionFlower({ side = "left" }: { side?: "left" | "right" }) {
   );
 }
 
+
+function StickyTopFloralFrame() {
+  return (
+    <div className="sticky top-0 z-30 px-3 pt-3">
+      <div className="relative overflow-hidden rounded-full border border-white/70 bg-white/70 px-4 py-3 shadow-[0_10px_28px_rgba(74,84,53,0.18)] backdrop-blur-md">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A67C52]/60 to-transparent" />
+        <div className="relative flex items-center justify-between">
+          <AnimatedLeafCluster side="left" />
+          <p className="px-3 text-center text-[11px] tracking-[4px] text-[#66724D] uppercase">Our Wedding Day</p>
+          <AnimatedLeafCluster side="right" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AnimatedLeafCluster({ side = "left" }: { side?: "left" | "right" }) {
+  const xDirection = side === "left" ? -1 : 1;
+
+  return (
+    <motion.svg
+      viewBox="0 0 120 42"
+      aria-hidden
+      className={`h-10 w-28 ${side === "right" ? "-scale-x-100" : ""}`}
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <motion.path
+        d="M7 35C26 31 37 19 52 10C66 2 82 4 111 10"
+        stroke="#8FA37D"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        initial={{ pathLength: 0.2, opacity: 0.5 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 2.1, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+      />
+
+      {[16, 35, 54, 76].map((x, idx) => (
+        <motion.path
+          key={`leaf-${x}`}
+          d={`M${x} 28C${x + (8 * xDirection)} 20 ${x + (17 * xDirection)} 18 ${x + (24 * xDirection)} 21C${x + (16 * xDirection)} 30 ${x + (9 * xDirection)} 33 ${x} 28Z`}
+          fill={idx % 2 === 0 ? "#9CAF88" : "#B7C7A8"}
+          fillOpacity="0.95"
+          animate={{
+            rotate: [-3, 3, -3],
+            y: [0, -1.5, 0],
+          }}
+          transition={{
+            duration: 2.6 + idx * 0.4,
+            delay: idx * 0.16,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{ originX: "50%", originY: "70%" }}
+        />
+      ))}
+
+      {[22, 64, 92].map((x, idx) => (
+        <motion.circle
+          key={`flower-${x}`}
+          cx={x}
+          cy={idx % 2 ? 16 : 18}
+          r="2.1"
+          fill="#D8C7A0"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.75, 1, 0.75] }}
+          transition={{ duration: 2 + idx * 0.5, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
+    </motion.svg>
+  );
+}
+
 interface PageProps {
   params: Promise<{ id: string }>
 }
@@ -96,6 +171,7 @@ export default function InvitePage({ params }: PageProps) {
 
       <div className="absolute bottom-[-120px] right-[-120px] w-[320px] h-[320px] bg-[#9CAF88]/20 blur-[120px] rounded-full" />
 
+      <StickyTopFloralFrame />
       <FloralFrame />
       <BackgroundMusic />
       <FloatingFlowers />
