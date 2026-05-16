@@ -1,4 +1,6 @@
 import { CalendarDays, ImageIcon, MapPin, MessageSquare, Volume2 } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface ClassicKhmerInvitationCardProps {
   guestName: string;
@@ -14,13 +16,44 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
       <div className="relative overflow-hidden rounded-[1.8rem] border border-[#a48a62]/45 bg-[url('/frame/bg1.png')] bg-cover bg-center p-4">
         <div className="absolute inset-0 bg-white/65" />
 
-        <div className="relative z-10 rounded-[1.5rem] px-6 pb-7 pt-10 text-center shadow-inner">
+        <div className="relative z-10 rounded-[1.5rem] px-4 pb-4 pt-10 text-center shadow-inner">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-10 to-transparent" />
 
-          <h2 className="mt-3 text-3xl leading-tight text-[#7a5a34]">សិរីមង្គលអាពាហ៍ពិពាហ៍</h2>
+          {/* <h2 className="mt-3 text-3xl leading-tight text-[#7a5a34]">សិរីមង្គលអាពាហ៍ពិពាហ៍</h2> */}
+          <p className="text-2xl text-[#6d5130]">មានកិត្តិយសសូមគោរពអញ្ជើញ</p>
 
-          <p className="mt-6 text-base leading-relaxed text-[#57462f]">សូមគោរពអញ្ជើញ</p>
-          <p className="text-2xl text-[#6d5130]">{guestName}</p>
+          <p className="mt-6 mb-6 text-sm leading-7 text-[#695338]">
+            ឯកឧត្តម អ្នកឧកញ៉ា លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា អញ្ជើញចូលរួមជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធពរជ័យសិរីមង្គលក្នុងពិធីរៀបអាពាហ៍ពិពាហ៍កូនប្រុសស្រីរបស់យើងខ្ញុំ
+          </p>
+
+          <motion.div
+            initial={{ scale: 0.88, opacity: 0, rotate: -8 }}
+            animate={{
+              scale: [0.95, 1.03, 1],
+              opacity: 1,
+              rotate: [-6, 4, 0],
+              borderRadius: [
+                "28% 72% 65% 35% / 35% 35% 65% 65%",
+                "63% 37% 42% 58% / 47% 64% 36% 53%",
+                "42% 58% 59% 41% / 46% 42% 58% 54%",
+              ],
+            }}
+            transition={{ duration: 1.6, delay: 0.1, ease: "easeOut" }}
+            className="mx-auto mb-6 h-40 w-40 overflow-hidden border-4 border-white/80 shadow-[0_18px_40px_rgba(0,0,0,0.22)]"
+          >
+            <Image
+              src="/cover.png"
+              alt="Bride and groom"
+              width={160}
+              height={160}
+              className="h-full w-full object-cover"
+              priority
+            />
+          </motion.div>
+          
+          <p className="mt-6 text-sm leading-7 text-[#695338]">
+            ដែលនឹងប្រារពនៅ ថ្ងៃអាទិត្យ ទី២៥ ខែមករា ឆ្នាំ២០២៦ ត្រូវនឹងថ្ងៃ ៧កើត ខែមាឃ សប្តស័ក ព.ស. ២៥៦៩ នៅវេលាម៉ោង ៥ល្ងាច នៅគេហដ្ឋានខាងស្រី ដោយមេត្រីភាព។
+          </p>
 
           <div className="mt-7 space-y-2 text-[#54432e]">
             <p className="text-sm">ថ្ងៃសៅរ៍ ទី១៦ ខែមករា ឆ្នាំ២០២៧</p>
@@ -28,10 +61,6 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
             <p className="text-sm">Phnom Penh Grand Ballroom</p>
           </div>
 
-          <p className="mt-6 text-sm leading-7 text-[#695338]">
-            វត្តមានរបស់អ្នកគឺជាកិត្តិយសដ៏ធំធេងសម្រាប់គ្រួសារយើងខ្ញុំ។
-            សូមអរគុណសម្រាប់ក្តីស្រឡាញ់ និងការជូនពរ។
-          </p>
         </div>
 
       </div>

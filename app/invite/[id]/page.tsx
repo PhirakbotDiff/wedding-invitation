@@ -152,8 +152,6 @@ export default function InvitePage({ params }: PageProps) {
             />
           </div>
 
-          <p className="text-sm tracking-[3px] text-[#8A9273] uppercase">Together with our families</p>
-          <p className="mt-4 text-lg text-[#6D7456]">Welcome Dear {guest.name} 💚</p>
         </motion.div>
 
         <motion.div
