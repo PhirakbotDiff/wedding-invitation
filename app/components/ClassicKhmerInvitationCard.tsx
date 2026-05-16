@@ -22,6 +22,19 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
           {/* <h2 className="mt-3 text-3xl leading-tight text-[#7a5a34]">សិរីមង្គលអាពាហ៍ពិពាហ៍</h2> */}
           <p className="text-2xl text-[#6d5130]">មានកិត្តិយសសូមគោរពអញ្ជើញ</p>
 
+          <div className="mt-4 grid grid-cols-2 gap-3 text-[#6d5130]">
+            <div className="rounded-xl bg-white/50 px-3 py-2">
+              <p className="text-xs font-medium">គ្រួសារកូនប្រុស</p>
+              <p className="mt-1 text-sm">ឪពុក៖ ឈឿន សុភាព</p>
+              <p className="text-sm">ម្ដាយ៖ ឡុង សុជាតា</p>
+            </div>
+            <div className="rounded-xl bg-white/50 px-3 py-2">
+              <p className="text-xs font-medium">គ្រួសារកូនស្រី</p>
+              <p className="mt-1 text-sm">ឪពុក៖ ប៉ែន សុខា</p>
+              <p className="text-sm">ម្ដាយ៖ ឆាយ សុភា</p>
+            </div>
+          </div>
+
           <p className="mt-6 mb-6 text-sm leading-7 text-[#695338]">
             ឯកឧត្តម អ្នកឧកញ៉ា លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា អញ្ជើញចូលរួមជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធពរជ័យសិរីមង្គលក្នុងពិធីរៀបអាពាហ៍ពិពាហ៍កូនប្រុសស្រីរបស់យើងខ្ញុំ
           </p>
