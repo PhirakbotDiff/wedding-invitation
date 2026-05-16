@@ -51,18 +51,24 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
             />
           </motion.div>
 
-          <div className="mb-6 flex items-center justify-center gap-3 text-[#7a5a34]">
-            <p className="text-xl font-semibold tracking-wide">កូនកំលោះ</p>
-            <motion.span
-              aria-label="heart"
-              initial={{ scale: 0.9, opacity: 0.7 }}
-              animate={{ scale: [1, 1.25, 1], opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-              className="text-2xl text-rose-500"
-            >
-              ♥
-            </motion.span>
-            <p className="text-xl font-semibold tracking-wide">កូនក្រមុំ</p>
+          <div className="mb-6 text-[#7a5a34]">
+            <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-center">
+              <p className="text-base font-medium">កូនប្រុសនាម</p>
+              <motion.span
+                aria-label="heart"
+                initial={{ scale: 0.9, opacity: 0.7 }}
+                animate={{ scale: [1, 1.25, 1], opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                className="text-2xl text-rose-500"
+              >
+                ♥
+              </motion.span>
+              <p className="text-base font-medium">កូនស្រីនាម</p>
+            </div>
+            <div className="mt-1 grid grid-cols-2 gap-3 text-center">
+              <p className="text-lg font-semibold leading-relaxed">ឈឿន គង្គាភិរុណភិរក្សបុត្រ</p>
+              <p className="text-lg font-semibold leading-relaxed">ប៉ែន សុមាលី</p>
+            </div>
           </div>
 
           <p className="mt-6 text-sm leading-7 text-[#695338]">
