@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { persistInviteCode, readPersistedInviteCode } from "./lib/telegramInviteStorage";
 
 function normalizeInviteCode(value: string | null | undefined): string | null {
   if (!value) return null;
@@ -64,6 +65,18 @@ declare global {
         initDataUnsafe?: {
           start_param?: string;
         };
+        deviceStorage?: {
+          getItem?: (key: string) => Promise<string | null | undefined> | string | null | undefined;
+          setItem?: (key: string, value: string) => Promise<unknown> | unknown;
+        };
+        DeviceStorage?: {
+          getItem?: (key: string) => Promise<string | null | undefined> | string | null | undefined;
+          setItem?: (key: string, value: string) => Promise<unknown> | unknown;
+        };
+        CloudStorage?: {
+          getItem?: (key: string) => Promise<string | null | undefined> | string | null | undefined;
+          setItem?: (key: string, value: string) => Promise<unknown> | unknown;
+        };
       };
     };
   }
@@ -72,69 +85,69 @@ declare global {
 export default function Home() {
   const [inviteCode, setInviteCode] = useState<string | null>(null);
 
+  const redirectingRef = useRef(false);
+
   useEffect(() => {
-    const resolveInviteCode = (): string | null => {
-      const byQuery = normalizeInviteCode(getInviteCodeFromUrl());
+    let cancelled = false;
+    let pollTimer: number | null = null;
 
-      const tgWebApp = window.Telegram?.WebApp;
+    const tgWebApp = window.Telegram?.WebApp;
+    tgWebApp?.ready();
 
-      const tgStartParam = normalizeInviteCode(
-        tgWebApp?.initDataUnsafe?.start_param
-      );
+    const resolveFromRuntime = (): string | null => {
+      const fromInitUnsafe = normalizeInviteCode(tgWebApp?.initDataUnsafe?.start_param);
+      if (fromInitUnsafe) return fromInitUnsafe;
 
-      if (tgStartParam) return tgStartParam;
-
-      // Fallback: parse initData when start_param is not exposed in initDataUnsafe.
-      const rawInitData = tgWebApp?.initData;
-      if (rawInitData) {
-        const initDataParams = new URLSearchParams(rawInitData);
-        const fromInitData = normalizeInviteCode(
-          initDataParams.get("start_param")
-        );
-
+      if (tgWebApp?.initData) {
+        const initDataParams = new URLSearchParams(tgWebApp.initData);
+        const fromInitData = normalizeInviteCode(initDataParams.get("start_param"));
         if (fromInitData) return fromInitData;
       }
 
-      return byQuery;
+      return normalizeInviteCode(getInviteCodeFromUrl());
     };
 
-    let redirected = false;
-
-    const redirectWithCode = (resolvedCode: string) => {
-      if (redirected) return;
-      redirected = true;
-      setInviteCode(resolvedCode);
-      window.location.replace(`/invite/${encodeURIComponent(resolvedCode)}`);
+    const safeRedirect = (code: string) => {
+      if (redirectingRef.current || cancelled) return;
+      redirectingRef.current = true;
+      setInviteCode(code);
+      window.location.replace(`/invite/${encodeURIComponent(code)}`);
     };
 
-    const tryResolveAndRedirect = () => {
-      const resolvedCode = resolveInviteCode();
-      if (resolvedCode) {
-        redirectWithCode(resolvedCode);
-        return true;
+    const run = async () => {
+      const immediate = resolveFromRuntime();
+      if (immediate) {
+        await persistInviteCode(immediate, tgWebApp);
+        safeRedirect(immediate);
+        return;
       }
 
-      return false;
+      const persisted = await readPersistedInviteCode(tgWebApp);
+      if (!cancelled && persisted) {
+        safeRedirect(persisted);
+        return;
+      }
+
+      const pollUntil = Date.now() + 4000;
+      pollTimer = window.setInterval(async () => {
+        const resolved = resolveFromRuntime();
+        if (resolved) {
+          await persistInviteCode(resolved, window.Telegram?.WebApp);
+          safeRedirect(resolved);
+        }
+
+        if (redirectingRef.current || Date.now() >= pollUntil) {
+          if (pollTimer) window.clearInterval(pollTimer);
+        }
+      }, 150);
     };
 
-    // Attempt immediately for local/dev URLs.
-    if (tryResolveAndRedirect()) return;
+    void run();
 
-    // In Telegram, WebApp data can appear slightly after initial render.
-    const pollUntil = Date.now() + 2500;
-    const timer = window.setInterval(() => {
-      const tgWebApp = window.Telegram?.WebApp;
-
-      if (tgWebApp) {
-        tgWebApp.ready();
-      }
-
-      if (tryResolveAndRedirect() || Date.now() > pollUntil) {
-        window.clearInterval(timer);
-      }
-    }, 120);
-
-    return () => window.clearInterval(timer);
+    return () => {
+      cancelled = true;
+      if (pollTimer) window.clearInterval(pollTimer);
+    };
   }, []);
 
   const inviteHref = useMemo(() => {
