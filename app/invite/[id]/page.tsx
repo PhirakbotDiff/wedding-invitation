@@ -192,7 +192,7 @@ export default function InvitePage({ params }: PageProps) {
             }
           }
         }}
-        className="relative z-10 max-w-md mx-auto pt-24 pb-32 px-4"
+        className="relative z-10 max-w-md mx-auto pt-10 pb-32 px-4"
       >
 
         {/* 💚 Hero */}
@@ -202,7 +202,7 @@ export default function InvitePage({ params }: PageProps) {
             visible: { opacity: 1, y: 0 }
           }}
           transition={{ duration: 1 }}
-          className="relative mb-16 overflow-hidden rounded-[30px] border border-white/45 px-6 py-10 text-center"
+          className="relative mb-10 overflow-hidden rounded-[30px] border border-white/45 px-6 py-10 text-center"
         >
           <SectionFlower side="left" />
           <p className="mb-4 text-xs tracking-[5px] text-[#7D8663] uppercase">
@@ -217,7 +217,7 @@ export default function InvitePage({ params }: PageProps) {
             ប៉ែន សុម៉ាលី
           </h3>
 
-          <div className="mx-auto mb-5 w-full max-w-[240px] overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-1 shadow-[0_12px_35px_rgba(0,0,0,0.12)]">
+          <div className="mx-auto mb-2 w-full max-w-[240px] overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-1 shadow-[0_12px_35px_rgba(0,0,0,0.12)]">
             <Image
               src="/cover.png"
               alt="Couple portrait"
@@ -246,7 +246,7 @@ export default function InvitePage({ params }: PageProps) {
           hidden: { opacity: 0, y: 20 },
           visible: { opacity: 1, y: 0 }
         }}
-        className="relative mb-16 overflow-hidden rounded-[28px] border border-white/40 p-4"
+        className="relative mb-10 overflow-hidden rounded-[28px] border border-white/40 p-4"
       >
         <SectionFlower side="right" />
         <Countdown />
@@ -425,23 +425,6 @@ export default function InvitePage({ params }: PageProps) {
 
         <Location />
 
-        {/* 🙏 Wedding Thank You */}
-        <motion.section
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: { opacity: 1, y: 0 }
-          }}
-          className="relative mt-20 overflow-hidden rounded-[28px] border border-white/45 p-8 text-center backdrop-blur-xl"
-        >
-          <SectionFlower side="right" />
-          <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Thank You</p>
-          <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">សូមអរគុណពីដួងចិត្ត</h3>
-          <p className="mx-auto max-w-md leading-8 text-[#6D7456]">
-            សូមអរគុណចំពោះក្តីស្រឡាញ់ ការគាំទ្រ និងការចំណាយពេលវេលាមកចូលរួមថ្ងៃពិសេសរបស់យើង។
-            វត្តមានរបស់អ្នកគឺជាអំណោយដ៏មានតម្លៃបំផុតសម្រាប់គ្រួសារថ្មីរបស់យើង។
-          </p>
-        </motion.section>
-
         {/* 🎁 Wedding Gift from Attendees */}
         <motion.section
           variants={{
@@ -468,6 +451,44 @@ export default function InvitePage({ params }: PageProps) {
             <p className="text-[#5C6445] text-lg">{giftInfo.accountName}</p>
             <p className="text-[#6D7456]">Contact: {giftInfo.contact}</p>
           </div>
+          
+        </motion.section>
+
+        {/* 🙏 Wedding Thank You */}
+        <motion.section
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
+          className="relative mt-20 overflow-hidden rounded-[28px] border border-white/45 p-8 text-center"
+        >
+          <SectionFlower side="right" />
+          <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Thank You</p>
+          <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">សូមអរគុណពីដួងចិត្ត</h3>
+          <p className="mx-auto max-w-md leading-8 text-[#6D7456]">
+            សូមអរគុណចំពោះក្តីស្រឡាញ់ ការគាំទ្រ និងការចំណាយពេលវេលាមកចូលរួមថ្ងៃពិសេសរបស់យើង។
+            វត្តមានរបស់អ្នកគឺជាអំណោយដ៏មានតម្លៃបំផុតសម្រាប់គ្រួសារថ្មីរបស់យើង។
+            
+          </p>
+        </motion.section>
+
+
+        {/* 🙏 Wedding Apology */}
+        <motion.section
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
+          className="relative mt-20 overflow-hidden rounded-[28px] border border-white/45 p-8 text-center"
+        >
+          <SectionFlower side="right" />
+          <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Apology</p>
+          <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">លខិតសុំអភ័យទោស</h3>
+          <p className="mx-auto max-w-md leading-8 text-[#6D7456]">
+            សូមអរគុណចំពោះក្តីស្រឡាញ់ ការគាំទ្រ និងការចំណាយពេលវេលាមកចូលរួមថ្ងៃពិសេសរបស់យើង។
+            វត្តមានរបស់អ្នកគឺជាអំណោយដ៏មានតម្លៃបំផុតសម្រាប់គ្រួសារថ្មីរបស់យើង។
+            
+          </p>
         </motion.section>
 
       </motion.div>

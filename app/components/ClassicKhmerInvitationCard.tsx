@@ -8,33 +8,34 @@ interface ClassicKhmerInvitationCardProps {
 
 export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerInvitationCardProps) {
   return (
-    <section className="relative mx-auto w-full max-w-sm pt-16">
+    <section className="relative mx-auto w-full max-w-sm pt-4">
       
-      <div className="absolute right-4 top-4 z-20 rounded-xl bg-white/90 p-2 text-[#8b6b42] shadow-md">
+      {/* <div className="absolute right-4 top-4 z-20 rounded-xl bg-white/90 p-2 text-[#8b6b42] shadow-md">
         <Volume2 className="h-5 w-5" />
-      </div>
+      </div> */}
 
-      <div className="relative overflow-hidden rounded-[1.8rem] border border-[#a48a62]/45 bg-[url('/frame/bg1.png')] bg-cover bg-center p-4">
+      <div className="relative overflow-hidden rounded-[1.8rem] border border-[#a48a62]/45 bg-[url('/frame/bg1.png')] bg-cover bg-center p-2">
         <div className="absolute inset-0 bg-white/65" />
 
         <div className="relative z-10 rounded-[1.5rem] px-4 pb-4 pt-10 text-center shadow-inner">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-10 to-transparent" />
 
-          {/* <h2 className="mt-3 text-3xl leading-tight text-[#7a5a34]">សិរីមង្គលអាពាហ៍ពិពាហ៍</h2> */}
-          <p className="text-2xl text-[#6d5130]">មានកិត្តិយសសូមគោរពអញ្ជើញ</p>
+          <h2 className="mt-3 text-3xl leading-tight text-[#7a5a34]">សិរីមង្គលអាពាហ៍ពិពាហ៍</h2>
 
           <div className="mt-4 grid grid-cols-2 gap-3 text-[#6d5130]">
             <div className="rounded-xl bg-white/50 px-3 py-2">
-              <p className="text-xs font-medium">គ្រួសារកូនប្រុស</p>
+              <p className="text-sm font-bold">គ្រួសារកូនប្រុស</p>
               <p className="mt-1 text-sm">ឪពុក៖ ឈឿន សុភាព</p>
               <p className="text-sm">ម្ដាយ៖ ឡុង សុជាតា</p>
             </div>
             <div className="rounded-xl bg-white/50 px-3 py-2">
-              <p className="text-xs font-medium">គ្រួសារកូនស្រី</p>
+              <p className="text-sm font-bold">គ្រួសារកូនស្រី</p>
               <p className="mt-1 text-sm">ឪពុក៖ ប៉ែន សុខា</p>
               <p className="text-sm">ម្ដាយ៖ ឆាយ សុភា</p>
             </div>
           </div>
+
+          <p className="mt-2 text-2xl text-[#6d5130]">មានកិត្តិយសសូមគោរពអញ្ជើញ</p>
 
           <p className="mt-6 mb-6 text-sm leading-7 text-[#695338]">
             ឯកឧត្តម អ្នកឧកញ៉ា លោកជំទាវ លោក លោកស្រី អ្នកនាងកញ្ញា អញ្ជើញចូលរួមជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធពរជ័យសិរីមង្គលក្នុងពិធីរៀបអាពាហ៍ពិពាហ៍កូនប្រុសស្រីរបស់យើងខ្ញុំ
@@ -86,13 +87,8 @@ export default function ClassicKhmerInvitationCard({ guestName }: ClassicKhmerIn
           </div>
 
           <p className="mt-6 text-sm leading-7 text-[#695338]">
-            ដែលនឹងប្រារពនៅ ថ្ងៃអាទិត្យ ទី២៥ ខែមករា ឆ្នាំ២០២៦ ត្រូវនឹងថ្ងៃ ៧កើត ខែមាឃ សប្តស័ក ព.ស. ២៥៦៩ នៅវេលាម៉ោង ៥ល្ងាច នៅគេហដ្ឋានខាងស្រី ដោយមេត្រីភាព។
+            ដែលនឹងប្រារពនៅ ថ្ងៃសៅរ៍ ទី១៦ ខែមករា ឆ្នាំ២០២៧ ត្រូវនឹងថ្ងៃ ៧កើត ខែមាឃ សប្តស័ក ព.ស. ២៥៦៩ នៅវេលាម៉ោង ៥ល្ងាច នៅគេហដ្ឋានខាងស្រី ដោយមេត្រីភាព។
           </p>
-
-          <div className="mt-7 space-y-2 text-[#54432e]">
-            <p className="text-sm">ថ្ងៃសៅរ៍ ទី១៦ ខែមករា ឆ្នាំ២០២៧</p>
-            <p className="text-sm">ចាប់ផ្តើម ៥:០០ ល្ងាច</p>
-          </div>
 
         </div>
 
