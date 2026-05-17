@@ -22,6 +22,12 @@ On the landing page (`/`), the app resolves an invite code from:
    - `?code=G001`
    - `?invite=G001`
    - `?startapp=G001`
+   - `?tgWebAppStartParam=G001`
+3. Hash params fallback (for clients that put launch params in hash):
+   - `#code=G001`
+   - `#invite=G001`
+   - `#startapp=G001`
+   - `#tgWebAppStartParam=G001`
 
 If a code is found, the app automatically redirects to `/invite/<CODE>`.
 
