@@ -53,6 +53,81 @@ function SectionFlower({ side = "left" }: { side?: "left" | "right" }) {
   );
 }
 
+
+function StickyTopFloralFrame() {
+  return (
+    <div className="sticky top-0 z-30 px-3 pt-3">
+      <div className="relative overflow-hidden rounded-full border border-white/70 bg-white/70 px-4 py-3 shadow-[0_10px_28px_rgba(74,84,53,0.18)] backdrop-blur-md">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A67C52]/60 to-transparent" />
+        <div className="relative flex items-center justify-between">
+          <AnimatedLeafCluster side="left" />
+          <p className="px-3 text-center text-[11px] tracking-[4px] text-[#66724D] uppercase">Our Wedding Day</p>
+          <AnimatedLeafCluster side="right" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AnimatedLeafCluster({ side = "left" }: { side?: "left" | "right" }) {
+  const xDirection = side === "left" ? -1 : 1;
+
+  return (
+    <motion.svg
+      viewBox="0 0 120 42"
+      aria-hidden
+      className={`h-10 w-28 ${side === "right" ? "-scale-x-100" : ""}`}
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <motion.path
+        d="M7 35C26 31 37 19 52 10C66 2 82 4 111 10"
+        stroke="#8FA37D"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        initial={{ pathLength: 0.2, opacity: 0.5 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 2.1, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+      />
+
+      {[16, 35, 54, 76].map((x, idx) => (
+        <motion.path
+          key={`leaf-${x}`}
+          d={`M${x} 28C${x + (8 * xDirection)} 20 ${x + (17 * xDirection)} 18 ${x + (24 * xDirection)} 21C${x + (16 * xDirection)} 30 ${x + (9 * xDirection)} 33 ${x} 28Z`}
+          fill={idx % 2 === 0 ? "#9CAF88" : "#B7C7A8"}
+          fillOpacity="0.95"
+          animate={{
+            rotate: [-3, 3, -3],
+            y: [0, -1.5, 0],
+          }}
+          transition={{
+            duration: 2.6 + idx * 0.4,
+            delay: idx * 0.16,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{ originX: "50%", originY: "70%" }}
+        />
+      ))}
+
+      {[22, 64, 92].map((x, idx) => (
+        <motion.circle
+          key={`flower-${x}`}
+          cx={x}
+          cy={idx % 2 ? 16 : 18}
+          r="2.1"
+          fill="#D8C7A0"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.75, 1, 0.75] }}
+          transition={{ duration: 2 + idx * 0.5, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
+    </motion.svg>
+  );
+}
+
 interface PageProps {
   params: Promise<{ id: string }>
 }
@@ -77,7 +152,7 @@ export default function InvitePage({ params }: PageProps) {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-x-hidden">
 
       {/* 🌿 Background */}
       <Image
@@ -96,6 +171,7 @@ export default function InvitePage({ params }: PageProps) {
 
       <div className="absolute bottom-[-120px] right-[-120px] w-[320px] h-[320px] bg-[#9CAF88]/20 blur-[120px] rounded-full" />
 
+      <StickyTopFloralFrame />
       <FloralFrame />
       <BackgroundMusic />
       <FloatingFlowers />
@@ -116,7 +192,7 @@ export default function InvitePage({ params }: PageProps) {
             }
           }
         }}
-        className="relative z-10 max-w-md mx-auto pt-24 pb-32 px-4"
+        className="relative z-10 max-w-md mx-auto pt-10 pb-32 px-4"
       >
 
         {/* 💚 Hero */}
@@ -126,7 +202,7 @@ export default function InvitePage({ params }: PageProps) {
             visible: { opacity: 1, y: 0 }
           }}
           transition={{ duration: 1 }}
-          className="relative mb-16 overflow-hidden rounded-[30px] border border-white/45 px-6 py-10 text-center"
+          className="relative mb-10 overflow-hidden rounded-[30px] border border-white/45 px-6 py-10 text-center"
         >
           <SectionFlower side="left" />
           <p className="mb-4 text-xs tracking-[5px] text-[#7D8663] uppercase">
@@ -141,7 +217,7 @@ export default function InvitePage({ params }: PageProps) {
             ប៉ែន សុម៉ាលី
           </h3>
 
-          <div className="mx-auto mb-5 w-full max-w-[240px] overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-1 shadow-[0_12px_35px_rgba(0,0,0,0.12)]">
+          <div className="mx-auto mb-2 w-full max-w-[240px] overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-1 shadow-[0_12px_35px_rgba(0,0,0,0.12)]">
             <Image
               src="/cover.png"
               alt="Couple portrait"
@@ -170,7 +246,7 @@ export default function InvitePage({ params }: PageProps) {
           hidden: { opacity: 0, y: 20 },
           visible: { opacity: 1, y: 0 }
         }}
-        className="relative mb-16 overflow-hidden rounded-[28px] border border-white/40 p-4"
+        className="relative mb-10 overflow-hidden rounded-[28px] border border-white/40 p-4"
       >
         <SectionFlower side="right" />
         <Countdown />
@@ -349,23 +425,6 @@ export default function InvitePage({ params }: PageProps) {
 
         <Location />
 
-        {/* 🙏 Wedding Thank You */}
-        <motion.section
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: { opacity: 1, y: 0 }
-          }}
-          className="relative mt-20 overflow-hidden rounded-[28px] border border-white/45 p-8 text-center backdrop-blur-xl"
-        >
-          <SectionFlower side="right" />
-          <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Thank You</p>
-          <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">សូមអរគុណពីដួងចិត្ត</h3>
-          <p className="mx-auto max-w-md leading-8 text-[#6D7456]">
-            សូមអរគុណចំពោះក្តីស្រឡាញ់ ការគាំទ្រ និងការចំណាយពេលវេលាមកចូលរួមថ្ងៃពិសេសរបស់យើង។
-            វត្តមានរបស់អ្នកគឺជាអំណោយដ៏មានតម្លៃបំផុតសម្រាប់គ្រួសារថ្មីរបស់យើង។
-          </p>
-        </motion.section>
-
         {/* 🎁 Wedding Gift from Attendees */}
         <motion.section
           variants={{
@@ -392,6 +451,44 @@ export default function InvitePage({ params }: PageProps) {
             <p className="text-[#5C6445] text-lg">{giftInfo.accountName}</p>
             <p className="text-[#6D7456]">Contact: {giftInfo.contact}</p>
           </div>
+          
+        </motion.section>
+
+        {/* 🙏 Wedding Thank You */}
+        <motion.section
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
+          className="relative mt-20 overflow-hidden rounded-[28px] border border-white/45 p-8 text-center"
+        >
+          <SectionFlower side="right" />
+          <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Thank You</p>
+          <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">សូមអរគុណពីដួងចិត្ត</h3>
+          <p className="mx-auto max-w-md leading-8 text-[#6D7456]">
+            សូមអរគុណចំពោះក្តីស្រឡាញ់ ការគាំទ្រ និងការចំណាយពេលវេលាមកចូលរួមថ្ងៃពិសេសរបស់យើង។
+            វត្តមានរបស់អ្នកគឺជាអំណោយដ៏មានតម្លៃបំផុតសម្រាប់គ្រួសារថ្មីរបស់យើង។
+            
+          </p>
+        </motion.section>
+
+
+        {/* 🙏 Wedding Apology */}
+        <motion.section
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
+          className="relative mt-20 overflow-hidden rounded-[28px] border border-white/45 p-8 text-center"
+        >
+          <SectionFlower side="right" />
+          <p className="mb-2 text-xs tracking-[4px] text-[#7D8663] uppercase">Wedding Apology</p>
+          <h3 className="mb-4 text-3xl text-[#5C6445] leading-relaxed">លខិតសុំអភ័យទោស</h3>
+          <p className="mx-auto max-w-md leading-8 text-[#6D7456]">
+            សូមអរគុណចំពោះក្តីស្រឡាញ់ ការគាំទ្រ និងការចំណាយពេលវេលាមកចូលរួមថ្ងៃពិសេសរបស់យើង។
+            វត្តមានរបស់អ្នកគឺជាអំណោយដ៏មានតម្លៃបំផុតសម្រាប់គ្រួសារថ្មីរបស់យើង។
+            
+          </p>
         </motion.section>
 
       </motion.div>

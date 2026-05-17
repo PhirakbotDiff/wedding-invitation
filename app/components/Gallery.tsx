@@ -10,9 +10,9 @@ const images = [
 
 export default function Gallery() {
   return (
-    <section className="py-10 px-6">
+    <section className="py-6 px-6">
       <h2 className="text-3xl text-[#535C39] text-center leading-relaxed mb-12">
-        Pre-Wedding Moments
+        កម្រងរូបភាពពីពិធីរៀបអាពាហ៍ពិពាហ៍
       </h2>
 
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
