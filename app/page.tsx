@@ -8,10 +8,39 @@ import { useEffect, useMemo, useState } from "react";
 function normalizeInviteCode(value: string | null | undefined): string | null {
   if (!value) return null;
 
-  const cleaned = decodeURIComponent(value).trim().toUpperCase();
-  if (!cleaned) return null;
+  try {
+    const cleaned = decodeURIComponent(value).trim().toUpperCase();
+    return cleaned || null;
+  } catch {
+    const cleaned = value.trim().toUpperCase();
+    return cleaned || null;
+  }
+}
 
-  return cleaned;
+function getInviteCodeFromUrl(): string | null {
+  const query = new URLSearchParams(window.location.search);
+
+  const fromSearch =
+    query.get("code") ||
+    query.get("invite") ||
+    query.get("startapp") ||
+    query.get("tgWebAppStartParam");
+
+  if (fromSearch) return fromSearch;
+
+  const rawHash = window.location.hash.startsWith("#")
+    ? window.location.hash.slice(1)
+    : window.location.hash;
+
+  if (!rawHash) return null;
+
+  const hashParams = new URLSearchParams(rawHash);
+  return (
+    hashParams.get("code") ||
+    hashParams.get("invite") ||
+    hashParams.get("startapp") ||
+    hashParams.get("tgWebAppStartParam")
+  );
 }
 
 declare global {
@@ -31,11 +60,7 @@ export default function Home() {
   const [inviteCode, setInviteCode] = useState<string | null>(null);
 
   useEffect(() => {
-    const byQuery = normalizeInviteCode(
-      new URLSearchParams(window.location.search).get("code") ||
-      new URLSearchParams(window.location.search).get("invite") ||
-      new URLSearchParams(window.location.search).get("startapp")
-    );
+    const byQuery = normalizeInviteCode(getInviteCodeFromUrl());
 
     const tgStartParam = normalizeInviteCode(
       window.Telegram?.WebApp?.initDataUnsafe?.start_param
