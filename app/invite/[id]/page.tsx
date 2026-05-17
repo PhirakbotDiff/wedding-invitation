@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import OpeningScreen from "@/app/components/OpeningScreen";
 import Countdown from "@/app/components/Countdown";
@@ -142,6 +142,7 @@ const giftInfo = {
 export default function InvitePage({ params }: PageProps) {
 
   const [opened, setOpened] = useState(false);
+  const isTelegramWebView = useMemo(() => typeof window !== "undefined" && Boolean(window.Telegram?.WebApp), []);
   const { id } = React.use(params);
   const guest = getGuestByInviteId(id);
 
@@ -358,7 +359,7 @@ export default function InvitePage({ params }: PageProps) {
         </motion.div>
 
         {/* 💌 Love Story */}
-        <Parallax speed={-10}>
+        <Parallax speed={isTelegramWebView ? 0 : -10} disabled={isTelegramWebView}>
           <section className="relative mt-10 overflow-hidden rounded-[30px] border border-white/45 px-8 py-10">
             <SectionFlower side="right" />
             <h2 className="text-center text-3xl text-[#535C39] leading-relaxed">
