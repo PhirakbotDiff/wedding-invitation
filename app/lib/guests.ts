@@ -15,5 +15,21 @@ export function getGuestByInviteId(rawId: string): Guest | null {
   const inviteId = decodeURIComponent(rawId).trim().toUpperCase();
 
   if (!inviteId) return null;
-  return guestsById[inviteId] ?? null;
+
+  const exactMatch = guestsById[inviteId];
+  if (exactMatch) return exactMatch;
+
+  // Telegram Mini App start parameters are sometimes wrapped in prefixes,
+  // separators, or payloads (e.g. invite_HCF01, code=HCF01).
+  const tokenCandidates = inviteId
+    .split(/[^A-Z0-9]+/)
+    .map((token) => token.trim())
+    .filter(Boolean);
+
+  for (const token of tokenCandidates) {
+    const guest = guestsById[token];
+    if (guest) return guest;
+  }
+
+  return null;
 }
