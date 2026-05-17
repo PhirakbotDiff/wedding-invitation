@@ -28,6 +28,18 @@ function getInviteCodeFromUrl(): string | null {
 
   if (fromSearch) return fromSearch;
 
+  const tgWebAppData = query.get("tgWebAppData");
+  if (tgWebAppData) {
+    try {
+      const decoded = decodeURIComponent(tgWebAppData);
+      const tgParams = new URLSearchParams(decoded);
+      const fromTgData = tgParams.get("start_param");
+      if (fromTgData) return fromTgData;
+    } catch {
+      // Ignore malformed tgWebAppData and continue with hash fallback.
+    }
+  }
+
   const rawHash = window.location.hash.startsWith("#")
     ? window.location.hash.slice(1)
     : window.location.hash;
