@@ -3,9 +3,60 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 
+function normalizeInviteCode(value: string | null | undefined): string | null {
+  if (!value) return null;
+
+  const cleaned = decodeURIComponent(value).trim().toUpperCase();
+  if (!cleaned) return null;
+
+  return cleaned;
+}
+
+declare global {
+  interface Window {
+    Telegram?: {
+      WebApp?: {
+        ready: () => void;
+        initDataUnsafe?: {
+          start_param?: string;
+        };
+      };
+    };
+  }
+}
 
 export default function Home() {
+  const [inviteCode, setInviteCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    const byQuery = normalizeInviteCode(
+      new URLSearchParams(window.location.search).get("code") ||
+      new URLSearchParams(window.location.search).get("invite") ||
+      new URLSearchParams(window.location.search).get("startapp")
+    );
+
+    const tgStartParam = normalizeInviteCode(
+      window.Telegram?.WebApp?.initDataUnsafe?.start_param
+    );
+
+    const resolvedCode = tgStartParam ?? byQuery;
+
+    if (window.Telegram?.WebApp) {
+      window.Telegram.WebApp.ready();
+    }
+
+    if (resolvedCode) {
+      setInviteCode(resolvedCode);
+      window.location.replace(`/invite/${encodeURIComponent(resolvedCode)}`);
+    }
+  }, []);
+
+  const inviteHref = useMemo(() => {
+    return inviteCode ? `/invite/${encodeURIComponent(inviteCode)}` : "/invite/G001";
+  }, [inviteCode]);
+
   return (
     <main className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
 
@@ -20,12 +71,6 @@ export default function Home() {
 
       {/* 🌫 Overlay for readability */}
       <div className="absolute inset-0 bg-white/30 backdrop-blur-[1px]" />
-
-      {/* 🌿 Background Gradient */}
-      {/* <div className="absolute inset-0 bg-gradient-to-br from-[#F6F5F0] to-[#EDEBE4]" /> */}
-
-      {/* 🌿 Subtle Pattern Overlay */}
-      {/* <div className="absolute inset-0 opacity-[0.05] bg-[url('/pattern.png')] bg-cover" /> */}
 
       {/* ✨ Content */}
       <div className="relative z-10 flex flex-col items-center">
@@ -78,7 +123,7 @@ export default function Home() {
           transition={{ delay: 0.6 }}
         >
           <Link
-            href="/invite/G001"
+            href={inviteHref}
             className="relative inline-block px-8 py-3 text-white text-lg rounded-full 
             bg-gradient-to-r from-[#9CAF88] to-[#7E9270] 
             shadow-[0_8px_25px_rgba(0,0,0,0.2)]
