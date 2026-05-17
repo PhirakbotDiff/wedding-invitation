@@ -28,6 +28,18 @@ function getInviteCodeFromUrl(): string | null {
 
   if (fromSearch) return fromSearch;
 
+  const tgWebAppData = query.get("tgWebAppData");
+  if (tgWebAppData) {
+    try {
+      const decoded = decodeURIComponent(tgWebAppData);
+      const tgParams = new URLSearchParams(decoded);
+      const fromTgData = tgParams.get("start_param");
+      if (fromTgData) return fromTgData;
+    } catch {
+      // Ignore malformed tgWebAppData and continue with hash fallback.
+    }
+  }
+
   const rawHash = window.location.hash.startsWith("#")
     ? window.location.hash.slice(1)
     : window.location.hash;
@@ -48,6 +60,7 @@ declare global {
     Telegram?: {
       WebApp?: {
         ready: () => void;
+        initData?: string;
         initDataUnsafe?: {
           start_param?: string;
         };
@@ -60,22 +73,68 @@ export default function Home() {
   const [inviteCode, setInviteCode] = useState<string | null>(null);
 
   useEffect(() => {
-    const byQuery = normalizeInviteCode(getInviteCodeFromUrl());
+    const resolveInviteCode = (): string | null => {
+      const byQuery = normalizeInviteCode(getInviteCodeFromUrl());
 
-    const tgStartParam = normalizeInviteCode(
-      window.Telegram?.WebApp?.initDataUnsafe?.start_param
-    );
+      const tgWebApp = window.Telegram?.WebApp;
 
-    const resolvedCode = tgStartParam ?? byQuery;
+      const tgStartParam = normalizeInviteCode(
+        tgWebApp?.initDataUnsafe?.start_param
+      );
 
-    if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.ready();
-    }
+      if (tgStartParam) return tgStartParam;
 
-    if (resolvedCode) {
+      // Fallback: parse initData when start_param is not exposed in initDataUnsafe.
+      const rawInitData = tgWebApp?.initData;
+      if (rawInitData) {
+        const initDataParams = new URLSearchParams(rawInitData);
+        const fromInitData = normalizeInviteCode(
+          initDataParams.get("start_param")
+        );
+
+        if (fromInitData) return fromInitData;
+      }
+
+      return byQuery;
+    };
+
+    let redirected = false;
+
+    const redirectWithCode = (resolvedCode: string) => {
+      if (redirected) return;
+      redirected = true;
       setInviteCode(resolvedCode);
       window.location.replace(`/invite/${encodeURIComponent(resolvedCode)}`);
-    }
+    };
+
+    const tryResolveAndRedirect = () => {
+      const resolvedCode = resolveInviteCode();
+      if (resolvedCode) {
+        redirectWithCode(resolvedCode);
+        return true;
+      }
+
+      return false;
+    };
+
+    // Attempt immediately for local/dev URLs.
+    if (tryResolveAndRedirect()) return;
+
+    // In Telegram, WebApp data can appear slightly after initial render.
+    const pollUntil = Date.now() + 2500;
+    const timer = window.setInterval(() => {
+      const tgWebApp = window.Telegram?.WebApp;
+
+      if (tgWebApp) {
+        tgWebApp.ready();
+      }
+
+      if (tryResolveAndRedirect() || Date.now() > pollUntil) {
+        window.clearInterval(timer);
+      }
+    }, 120);
+
+    return () => window.clearInterval(timer);
   }, []);
 
   const inviteHref = useMemo(() => {
