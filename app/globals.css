@@ -39,11 +39,15 @@ body {
   overscroll-behavior-y: contain;
 }
 
-html {
+html,
+body {
+  overflow-x: hidden;
+}
+
+html.tg-webview {
   overflow: hidden;
 }
 
-body {
-  overflow-x: hidden;
+body.tg-webview {
   overflow-y: auto;
 }

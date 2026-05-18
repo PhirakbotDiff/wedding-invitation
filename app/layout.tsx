@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -32,6 +33,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  useEffect(() => {
+    const isTelegramWebView = Boolean((window as Window & { Telegram?: { WebApp?: unknown } }).Telegram?.WebApp);
+
+    document.documentElement.classList.toggle("tg-webview", isTelegramWebView);
+    document.body.classList.toggle("tg-webview", isTelegramWebView);
+
+    return () => {
+      document.documentElement.classList.remove("tg-webview");
+      document.body.classList.remove("tg-webview");
+    };
+  }, []);
+
   return (
     <html lang="en">
       <body
