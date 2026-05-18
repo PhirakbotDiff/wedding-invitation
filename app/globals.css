@@ -34,10 +34,22 @@ body {
 
 html,
 body {
+  height: 100%;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
 }
 
+body {
+  overflow-x: hidden;
+}
+
+html.tg-webview {
+  overflow: hidden;
+}
+
+body.tg-webview {
+  overflow-y: auto;
+}
 /*
   Avoid forcing GPU transforms on <body>; some mobile webviews (including
   Telegram Mini App) can fail to initialize or render reliably with it.
