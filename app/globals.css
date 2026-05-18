@@ -35,11 +35,10 @@ body {
 html,
 body {
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: none;
+  overscroll-behavior-y: contain;
 }
 
-@supports (-webkit-touch-callout: none) {
-  body {
-    transform: translateZ(0);
-  }
-}
+/*
+  Avoid forcing GPU transforms on <body>; some mobile webviews (including
+  Telegram Mini App) can fail to initialize or render reliably with it.
+*/
