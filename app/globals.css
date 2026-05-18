@@ -43,12 +43,18 @@ body {
   overflow-x: hidden;
 }
 
-html.tg-webview {
+html.tg-webview,
+body.tg-webview {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
-body.tg-webview {
+.tg-scroll-root {
+  height: 100dvh;
   overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 /*
   Avoid forcing GPU transforms on <body>; some mobile webviews (including

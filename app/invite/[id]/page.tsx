@@ -165,7 +165,7 @@ export default function InvitePage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
+    <div className={`relative min-h-screen overflow-x-hidden ${isTelegramWebView ? "tg-scroll-root" : ""}`}>
 
       {/* 🌿 Background */}
       <Image
