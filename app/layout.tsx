@@ -35,12 +35,18 @@ export default function RootLayout({
 }>) {
 
   useEffect(() => {
-    const isTelegramWebView = Boolean((window as Window & { Telegram?: { WebApp?: unknown } }).Telegram?.WebApp);
+    const tgWebApp = (window as Window & { Telegram?: { WebApp?: { disableVerticalSwipes?: () => void; enableVerticalSwipes?: () => void } } }).Telegram?.WebApp;
+    const isTelegramWebView = Boolean(tgWebApp);
+
+    if (isTelegramWebView) {
+      tgWebApp?.disableVerticalSwipes?.();
+    }
 
     document.documentElement.classList.toggle("tg-webview", isTelegramWebView);
     document.body.classList.toggle("tg-webview", isTelegramWebView);
 
     return () => {
+      tgWebApp?.enableVerticalSwipes?.();
       document.documentElement.classList.remove("tg-webview");
       document.body.classList.remove("tg-webview");
     };
