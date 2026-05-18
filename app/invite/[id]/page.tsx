@@ -17,7 +17,7 @@ import { motion } from "framer-motion";
 import { Parallax } from "react-scroll-parallax";
 
 import Image from "next/image";
-import { notFound, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { getGuestByInviteId } from "@/app/lib/guests";
 
 
@@ -141,7 +141,24 @@ export default function InvitePage() {
   const { id } = useParams<{ id: string }>();
   const guest = getGuestByInviteId(id);
 
-  if (!guest) return notFound();
+  if (!guest) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-white px-6 text-center">
+        <div className="max-w-md rounded-2xl border border-[#d8decf] bg-white/90 p-6 shadow-sm">
+          <h1 className="mb-3 text-2xl text-[#535C39]">Invitation Not Found</h1>
+          <p className="mb-5 text-[#6D7456]">
+            Your invite link looks invalid or expired. Please reopen the invitation from Telegram chat.
+          </p>
+          <a
+            href="/"
+            className="inline-block rounded-full bg-[#7E9270] px-6 py-3 text-white"
+          >
+            Back to Home
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   if (!opened) {
     return <OpeningScreen onOpen={() => setOpened(true)} guestName={guest.name} />;
