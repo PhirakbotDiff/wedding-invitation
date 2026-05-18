@@ -60,15 +60,32 @@ async function writeToTelegramStorage(code: string, webApp?: TelegramWebAppLike)
 }
 
 function readBrowserStorage(): string | null {
-  const localValue = normalize(window.localStorage.getItem(INVITE_STORAGE_KEY));
-  if (localValue) return localValue;
+  try {
+    const localValue = normalize(window.localStorage.getItem(INVITE_STORAGE_KEY));
+    if (localValue) return localValue;
+  } catch {
+    // ignore storage access issues in restricted webviews
+  }
 
-  return normalize(window.sessionStorage.getItem(INVITE_STORAGE_KEY));
+  try {
+    return normalize(window.sessionStorage.getItem(INVITE_STORAGE_KEY));
+  } catch {
+    return null;
+  }
 }
 
 function writeBrowserStorage(code: string): void {
-  window.localStorage.setItem(INVITE_STORAGE_KEY, code);
-  window.sessionStorage.setItem(INVITE_STORAGE_KEY, code);
+  try {
+    window.localStorage.setItem(INVITE_STORAGE_KEY, code);
+  } catch {
+    // ignore storage access issues in restricted webviews
+  }
+
+  try {
+    window.sessionStorage.setItem(INVITE_STORAGE_KEY, code);
+  } catch {
+    // ignore storage access issues in restricted webviews
+  }
 }
 
 export async function persistInviteCode(code: string, webApp?: TelegramWebAppLike): Promise<void> {

@@ -12,7 +12,12 @@ const guestsById: Record<string, Guest> = guestsData.reduce((acc, guest) => {
 }, {} as Record<string, Guest>);
 
 export function getGuestByInviteId(rawId: string): Guest | null {
-  const inviteId = decodeURIComponent(rawId).trim().toUpperCase();
+  let inviteId = "";
+  try {
+    inviteId = decodeURIComponent(rawId).trim().toUpperCase();
+  } catch {
+    inviteId = rawId.trim().toUpperCase();
+  }
 
   if (!inviteId) return null;
 
