@@ -17,7 +17,7 @@ import { motion } from "framer-motion";
 import { Parallax } from "react-scroll-parallax";
 
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { getGuestByInviteId } from "@/app/lib/guests";
 
 
@@ -128,22 +128,17 @@ function AnimatedLeafCluster({ side = "left" }: { side?: "left" | "right" }) {
   );
 }
 
-interface PageProps {
-  params: Promise<{ id: string }>
-}
-
-
 const giftInfo = {
   accountName: "ឈឿន គង្គាភិរុណភិរក្សបុត្រ",
   contact: "+855 12 345 678",
   qrImage: "/cover.png",
 };
 
-export default function InvitePage({ params }: PageProps) {
+export default function InvitePage() {
 
   const [opened, setOpened] = useState(false);
   const isTelegramWebView = useMemo(() => typeof window !== "undefined" && Boolean(window.Telegram?.WebApp), []);
-  const { id } = React.use(params);
+  const { id } = useParams<{ id: string }>();
   const guest = getGuestByInviteId(id);
 
   if (!guest) return notFound();
@@ -165,7 +160,7 @@ export default function InvitePage({ params }: PageProps) {
       />
 
       {/* 🌫 Soft Overlay */}
-      <div className="absolute inset-0 bg-white/55 backdrop-blur-[2px]" />
+      <div className={`absolute inset-0 bg-white/${isTelegramWebView ? "70" : "55"} ${isTelegramWebView ? "" : "backdrop-blur-[2px]"}`} />
 
       {/* ✨ Ambient Glow */}
       <div className="absolute top-[-120px] left-[-120px] w-[260px] h-[260px] bg-[#DDE6CC]/40 blur-[120px] rounded-full" />
@@ -173,9 +168,9 @@ export default function InvitePage({ params }: PageProps) {
       <div className="absolute bottom-[-120px] right-[-120px] w-[320px] h-[320px] bg-[#9CAF88]/20 blur-[120px] rounded-full" />
 
       <StickyTopFloralFrame />
-      <FloralFrame />
+      {!isTelegramWebView && <FloralFrame />}
       <BackgroundMusic />
-      <FloatingFlowers />
+      {!isTelegramWebView && <FloatingFlowers />}
       <div className="absolute left-3 top-40 z-10 text-3xl text-[#9CAF88]/60">❁</div>
       <div className="absolute right-5 top-[28rem] z-10 -rotate-12 text-4xl text-[#A67C52]/40">❋</div>
       <div className="absolute left-2 bottom-40 z-10 rotate-12 text-4xl text-[#7D8663]/40">❀</div>
@@ -183,13 +178,13 @@ export default function InvitePage({ params }: PageProps) {
 
       {/* 🌟 Main Content */}
       <motion.div
-        initial="hidden"
+        initial={isTelegramWebView ? false : "hidden"}
         animate="visible"
         variants={{
           hidden: {},
           visible: {
             transition: {
-              staggerChildren: 0.2
+              staggerChildren: isTelegramWebView ? 0.06 : 0.2
             }
           }
         }}
