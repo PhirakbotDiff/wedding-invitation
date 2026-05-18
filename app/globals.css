@@ -45,16 +45,21 @@ body {
 
 html.tg-webview,
 body.tg-webview {
-  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: clip;
   overscroll-behavior: none;
 }
 
 .tg-scroll-root {
   height: 100dvh;
+  min-height: 100dvh;
   overflow-y: auto;
   overflow-x: hidden;
-  overscroll-behavior-y: contain;
+  overscroll-behavior-y: none;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 /*
   Avoid forcing GPU transforms on <body>; some mobile webviews (including
