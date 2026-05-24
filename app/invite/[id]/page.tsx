@@ -139,20 +139,35 @@ function useTelegramScrollGuard(enabled: boolean) {
   const scrollRootRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
-    if (!enabled) return;
+    const htmlEl = document.documentElement;
+    const bodyEl = document.body;
+
+    if (!enabled) {
+      htmlEl.classList.remove("tg-webview");
+      bodyEl.classList.remove("tg-webview");
+      return;
+    }
 
     const el = scrollRootRef.current;
     if (!el) return;
 
+    htmlEl.classList.add("tg-webview");
+    bodyEl.classList.add("tg-webview");
+
     const syncViewportHeight = () => {
-      el.style.height = `${window.innerHeight}px`;
+      const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+      el.style.height = `${Math.round(viewportHeight)}px`;
     };
 
     syncViewportHeight();
+    window.visualViewport?.addEventListener("resize", syncViewportHeight);
     window.addEventListener("resize", syncViewportHeight);
 
     return () => {
+      window.visualViewport?.removeEventListener("resize", syncViewportHeight);
       window.removeEventListener("resize", syncViewportHeight);
+      htmlEl.classList.remove("tg-webview");
+      bodyEl.classList.remove("tg-webview");
       el.style.height = "";
     };
   }, [enabled]);
