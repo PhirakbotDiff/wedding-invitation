@@ -5,7 +5,6 @@ import { useMemo, useState } from "react";
 
 import OpeningScreen from "@/app/components/OpeningScreen";
 import Countdown from "@/app/components/Countdown";
-import BackgroundMusic from "@/app/components/BackgroundMusic";
 import FloatingFlowers from "@/app/components/FloatingFlowers";
 import Gallery from "@/app/components/Gallery";
 import FloralFrame from "@/app/components/FloralFrame";
@@ -54,7 +53,7 @@ function SectionFlower({ side = "left" }: { side?: "left" | "right" }) {
 }
 
 
-function StickyTopFloralFrame() {
+function StickyTopFloralFrame({ isPlaying, onToggleMusic }: { isPlaying: boolean; onToggleMusic: () => void }) {
   return (
     <div className="sticky top-0 z-30 px-3 pt-3">
       <div className="relative overflow-hidden rounded-full border border-white/70 bg-white/70 px-4 py-3 shadow-[0_10px_28px_rgba(74,84,53,0.18)] backdrop-blur-md">
@@ -62,14 +61,14 @@ function StickyTopFloralFrame() {
         <div className="relative flex items-center justify-between">
           <AnimatedLeafCluster side="left" />
           <p className="px-3 text-center text-[11px] tracking-[4px] text-[#66724D] uppercase">Our Wedding Day</p>
-          <a
-            href="/music.mp3"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-[#9CAF88]/60 bg-white/80 px-3 py-1 text-[10px] tracking-[2px] text-[#5C6445] uppercase transition hover:bg-white"
+          <button
+            type="button"
+            onClick={onToggleMusic}
+            aria-label={isPlaying ? "Pause music" : "Play music"}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#9CAF88]/60 bg-white/85 text-[#5C6445] shadow-sm transition hover:bg-white"
           >
-            Open Music
-          </a>
+            <span aria-hidden>{isPlaying ? "⏸" : "▶"}</span>
+          </button>
         </div>
       </div>
     </div>
@@ -183,10 +182,44 @@ const giftInfo = {
 export default function InvitePage() {
 
   const [opened, setOpened] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
   const isTelegramWebView = useMemo(() => typeof window !== "undefined" && Boolean(window.Telegram?.WebApp), []);
   const scrollRootRef = useTelegramScrollGuard(isTelegramWebView);
   const { id } = useParams<{ id: string }>();
   const guest = getGuestByInviteId(id);
+
+  React.useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const onPlay = () => setIsMusicPlaying(true);
+    const onPause = () => setIsMusicPlaying(false);
+
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
+
+    return () => {
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
+    };
+  }, [opened]);
+
+  const toggleMusic = React.useCallback(async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (audio.paused) {
+      try {
+        await audio.play();
+      } catch {
+        setIsMusicPlaying(false);
+      }
+      return;
+    }
+
+    audio.pause();
+  }, []);
 
   if (!guest) {
     return (
@@ -231,9 +264,9 @@ export default function InvitePage() {
 
       <div className="absolute bottom-[-120px] right-[-120px] w-[320px] h-[320px] bg-[#9CAF88]/20 blur-[120px] rounded-full" />
 
-      <StickyTopFloralFrame />
+      <StickyTopFloralFrame isPlaying={isMusicPlaying} onToggleMusic={toggleMusic} />
       {!isTelegramWebView && <FloralFrame />}
-      <BackgroundMusic />
+      <audio ref={audioRef} loop><source src="/music.mp3" type="audio/mpeg" /></audio>
       {!isTelegramWebView && <FloatingFlowers />}
       <div className="absolute left-3 top-40 z-10 text-3xl text-[#9CAF88]/60">❁</div>
       <div className="absolute right-5 top-[28rem] z-10 -rotate-12 text-4xl text-[#A67C52]/40">❋</div>
