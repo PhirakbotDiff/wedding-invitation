@@ -56,6 +56,7 @@ function SectionFlower({ side = "left" }: { side?: "left" | "right" }) {
 type MenuSection = {
   id: string;
   label: string;
+  icon: string;
 };
 
 function StickyTopFloralFrame({
@@ -119,11 +120,13 @@ function BottomSectionMenu({
                     setActiveSection(item.id);
                     onMenuSelect(item.id);
                   }}
-                  className={`relative z-10 rounded-xl px-3 py-2 text-xs transition ${
+                  aria-label={item.label}
+                  title={item.label}
+                  className={`relative z-10 rounded-xl px-3 py-2 text-lg leading-none transition ${
                     isActive ? "text-[#4E563C]" : "text-[#5C6445] hover:bg-[#f6f8f2]"
                   }`}
                 >
-                  {item.label}
+                  <span aria-hidden>{item.icon}</span>
                 </button>
               </li>
             );
@@ -250,12 +253,12 @@ export default function InvitePage() {
   const { id } = useParams<{ id: string }>();
   const guest = getGuestByInviteId(id);
   const menuSections: MenuSection[] = [
-    { id: "invitation-hero", label: "Hero" },
-    { id: "wedding-details", label: "Details" },
-    { id: "love-story", label: "Love Story" },
-    { id: "gallery", label: "Gallery" },
-    { id: "location", label: "Location" },
-    { id: "wedding-gift", label: "Gift" },
+    { id: "invitation-hero", label: "Hero", icon: "🏠" },
+    { id: "wedding-details", label: "Details", icon: "💍" },
+    { id: "love-story", label: "Love Story", icon: "❤️" },
+    { id: "gallery", label: "Gallery", icon: "🖼️" },
+    { id: "location", label: "Location", icon: "📍" },
+    { id: "wedding-gift", label: "Gift", icon: "🎁" },
   ];
 
   React.useEffect(() => {
