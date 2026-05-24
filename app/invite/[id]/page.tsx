@@ -144,35 +144,16 @@ function useTelegramScrollGuard(enabled: boolean) {
     const el = scrollRootRef.current;
     if (!el) return;
 
-    let startY = 0;
-
-    const onTouchStart = (event: TouchEvent) => {
-      if (event.touches.length !== 1) return;
-      startY = event.touches[0]?.clientY ?? 0;
+    const syncViewportHeight = () => {
+      el.style.height = `${window.innerHeight}px`;
     };
 
-    const onTouchMove = (event: TouchEvent) => {
-      if (event.touches.length !== 1 || !event.cancelable) return;
-
-      const currentY = event.touches[0]?.clientY ?? startY;
-      const deltaY = currentY - startY;
-      const atTop = el.scrollTop <= 0;
-      const atBottom = Math.ceil(el.scrollTop + el.clientHeight) >= el.scrollHeight;
-
-      const isPullingDownAtTop = atTop && deltaY > 0;
-      const isPullingUpAtBottom = atBottom && deltaY < 0;
-
-      if (isPullingDownAtTop || isPullingUpAtBottom) {
-        event.preventDefault();
-      }
-    };
-
-    el.addEventListener("touchstart", onTouchStart, { passive: true });
-    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    syncViewportHeight();
+    window.addEventListener("resize", syncViewportHeight);
 
     return () => {
-      el.removeEventListener("touchstart", onTouchStart);
-      el.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("resize", syncViewportHeight);
+      el.style.height = "";
     };
   }, [enabled]);
 
