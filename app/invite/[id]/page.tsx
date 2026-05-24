@@ -93,38 +93,43 @@ function BottomSectionMenu({
   onMenuSelect: (sectionId: string) => void;
   menuItems: MenuSection[];
 }) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [activeSection, setActiveSection] = React.useState(menuItems[0]?.id ?? "");
 
   return (
-    <div className="fixed bottom-6 right-4 z-40">
-      {isMenuOpen && (
-        <div className="mb-3 w-[220px] rounded-2xl border border-white/60 bg-white/90 p-2 shadow-[0_12px_28px_rgba(74,84,53,0.2)] backdrop-blur-md">
-          <ul className="grid grid-cols-2 gap-2">
-            {menuItems.map((item) => (
-              <li key={item.id}>
+    <div className="fixed inset-x-3 bottom-5 z-40">
+      <nav
+        aria-label="Section navigation"
+        className="overflow-x-auto rounded-2xl border border-white/60 bg-white/90 px-2 py-2 shadow-[0_12px_28px_rgba(74,84,53,0.2)] backdrop-blur-md"
+      >
+        <ul className="flex min-w-max items-center gap-1.5">
+          {menuItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <li key={item.id} className="relative">
+                {isActive && (
+                  <motion.div
+                    layoutId="bottom-nav-active-pill"
+                    className="absolute inset-0 rounded-xl bg-[#9CAF88]/30"
+                    transition={{ type: "spring", stiffness: 380, damping: 28 }}
+                  />
+                )}
                 <button
                   type="button"
                   onClick={() => {
+                    setActiveSection(item.id);
                     onMenuSelect(item.id);
-                    setIsMenuOpen(false);
                   }}
-                  className="w-full rounded-xl border border-[#d8decf] bg-white px-2 py-2 text-xs text-[#5C6445] transition hover:bg-[#f6f8f2]"
+                  className={`relative z-10 rounded-xl px-3 py-2 text-xs transition ${
+                    isActive ? "text-[#4E563C]" : "text-[#5C6445] hover:bg-[#f6f8f2]"
+                  }`}
                 >
                   {item.label}
                 </button>
               </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      <button
-        type="button"
-        onClick={() => setIsMenuOpen((prev) => !prev)}
-        aria-label="Open section menu"
-        className="ml-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#9CAF88]/60 bg-white/90 text-[#5C6445] shadow-[0_10px_24px_rgba(74,84,53,0.24)] transition hover:bg-white"
-      >
-        <span aria-hidden>☰</span>
-      </button>
+            );
+          })}
+        </ul>
+      </nav>
     </div>
   );
 }
