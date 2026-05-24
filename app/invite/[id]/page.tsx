@@ -147,16 +147,22 @@ function useTelegramScrollGuard(enabled: boolean) {
     let startY = 0;
 
     const onTouchStart = (event: TouchEvent) => {
+      if (event.touches.length !== 1) return;
       startY = event.touches[0]?.clientY ?? 0;
     };
 
     const onTouchMove = (event: TouchEvent) => {
+      if (event.touches.length !== 1 || !event.cancelable) return;
+
       const currentY = event.touches[0]?.clientY ?? startY;
       const deltaY = currentY - startY;
       const atTop = el.scrollTop <= 0;
       const atBottom = Math.ceil(el.scrollTop + el.clientHeight) >= el.scrollHeight;
 
-      if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
+      const isPullingDownAtTop = atTop && deltaY > 0;
+      const isPullingUpAtBottom = atBottom && deltaY < 0;
+
+      if (isPullingDownAtTop || isPullingUpAtBottom) {
         event.preventDefault();
       }
     };
@@ -245,7 +251,7 @@ export default function InvitePage() {
   }
 
   return (
-    <div ref={scrollRootRef} className={`relative min-h-screen overflow-x-hidden ${isTelegramWebView ? "tg-scroll-root" : ""}`}>
+    <div ref={scrollRootRef} className={`relative min-h-dvh overflow-x-hidden ${isTelegramWebView ? "tg-scroll-root" : "invite-scroll-root"}`}>
 
       {/* 🌿 Background */}
       <Image

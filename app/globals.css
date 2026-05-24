@@ -72,3 +72,11 @@ body.tg-webview {
   Avoid forcing GPU transforms on <body>; some mobile webviews (including
   Telegram Mini App) can fail to initialize or render reliably with it.
 */
+
+
+.invite-scroll-root {
+  min-height: 100dvh;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
