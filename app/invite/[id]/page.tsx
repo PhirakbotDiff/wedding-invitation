@@ -61,29 +61,16 @@ type MenuSection = {
 function StickyTopFloralFrame({
   isPlaying,
   onToggleMusic,
-  onMenuSelect,
-  menuItems,
 }: {
   isPlaying: boolean;
   onToggleMusic: () => void;
-  onMenuSelect: (sectionId: string) => void;
-  menuItems: MenuSection[];
 }) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
   return (
     <div className="sticky top-0 z-30 px-3 pt-3">
       <div className="relative overflow-hidden rounded-full border border-white/70 bg-white/70 px-4 py-3 shadow-[0_10px_28px_rgba(74,84,53,0.18)] backdrop-blur-md">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A67C52]/60 to-transparent" />
         <div className="relative flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-            aria-label="Open section menu"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#9CAF88]/60 bg-white/85 text-[#5C6445] shadow-sm transition hover:bg-white"
-          >
-            <span aria-hidden>☰</span>
-          </button>
+          <AnimatedLeafCluster side="left" />
           <p className="px-3 text-center text-[11px] tracking-[4px] text-[#66724D] uppercase">Our Wedding Day</p>
           <button
             type="button"
@@ -95,8 +82,23 @@ function StickyTopFloralFrame({
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function BottomSectionMenu({
+  onMenuSelect,
+  menuItems,
+}: {
+  onMenuSelect: (sectionId: string) => void;
+  menuItems: MenuSection[];
+}) {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  return (
+    <div className="fixed bottom-6 right-4 z-40">
       {isMenuOpen && (
-        <div className="mx-3 mt-2 rounded-2xl border border-white/60 bg-white/90 p-2 shadow-[0_12px_28px_rgba(74,84,53,0.2)] backdrop-blur-md">
+        <div className="mb-3 w-[220px] rounded-2xl border border-white/60 bg-white/90 p-2 shadow-[0_12px_28px_rgba(74,84,53,0.2)] backdrop-blur-md">
           <ul className="grid grid-cols-2 gap-2">
             {menuItems.map((item) => (
               <li key={item.id}>
@@ -106,7 +108,7 @@ function StickyTopFloralFrame({
                     onMenuSelect(item.id);
                     setIsMenuOpen(false);
                   }}
-                  className="w-full rounded-xl border border-[#d8decf] bg-white px-3 py-2 text-sm text-[#5C6445] transition hover:bg-[#f6f8f2]"
+                  className="w-full rounded-xl border border-[#d8decf] bg-white px-2 py-2 text-xs text-[#5C6445] transition hover:bg-[#f6f8f2]"
                 >
                   {item.label}
                 </button>
@@ -115,6 +117,14 @@ function StickyTopFloralFrame({
           </ul>
         </div>
       )}
+      <button
+        type="button"
+        onClick={() => setIsMenuOpen((prev) => !prev)}
+        aria-label="Open section menu"
+        className="ml-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#9CAF88]/60 bg-white/90 text-[#5C6445] shadow-[0_10px_24px_rgba(74,84,53,0.24)] transition hover:bg-white"
+      >
+        <span aria-hidden>☰</span>
+      </button>
     </div>
   );
 }
@@ -326,9 +336,8 @@ export default function InvitePage() {
       <StickyTopFloralFrame
         isPlaying={isMusicPlaying}
         onToggleMusic={toggleMusic}
-        onMenuSelect={handleMenuSelect}
-        menuItems={menuSections}
       />
+      <BottomSectionMenu onMenuSelect={handleMenuSelect} menuItems={menuSections} />
       {!isTelegramWebView && <FloralFrame />}
       <audio ref={audioRef} loop><source src="/music.mp3" type="audio/mpeg" /></audio>
       {!isTelegramWebView && <FloatingFlowers />}
