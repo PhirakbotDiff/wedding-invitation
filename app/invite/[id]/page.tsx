@@ -128,6 +128,45 @@ function AnimatedLeafCluster({ side = "left" }: { side?: "left" | "right" }) {
   );
 }
 
+
+function useTelegramScrollGuard(enabled: boolean) {
+  const scrollRootRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    if (!enabled) return;
+
+    const el = scrollRootRef.current;
+    if (!el) return;
+
+    let startY = 0;
+
+    const onTouchStart = (event: TouchEvent) => {
+      startY = event.touches[0]?.clientY ?? 0;
+    };
+
+    const onTouchMove = (event: TouchEvent) => {
+      const currentY = event.touches[0]?.clientY ?? startY;
+      const deltaY = currentY - startY;
+      const atTop = el.scrollTop <= 0;
+      const atBottom = Math.ceil(el.scrollTop + el.clientHeight) >= el.scrollHeight;
+
+      if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
+        event.preventDefault();
+      }
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+    };
+  }, [enabled]);
+
+  return scrollRootRef;
+}
+
 const giftInfo = {
   accountName: "ឈឿន គង្គាភិរុណភិរក្សបុត្រ",
   contact: "+855 12 345 678",
@@ -138,6 +177,7 @@ export default function InvitePage() {
 
   const [opened, setOpened] = useState(false);
   const isTelegramWebView = useMemo(() => typeof window !== "undefined" && Boolean(window.Telegram?.WebApp), []);
+  const scrollRootRef = useTelegramScrollGuard(isTelegramWebView);
   const { id } = useParams<{ id: string }>();
   const guest = getGuestByInviteId(id);
 
@@ -165,7 +205,7 @@ export default function InvitePage() {
   }
 
   return (
-    <div className={`relative min-h-screen overflow-x-hidden ${isTelegramWebView ? "tg-scroll-root" : ""}`}>
+    <div ref={scrollRootRef} className={`relative min-h-screen overflow-x-hidden ${isTelegramWebView ? "tg-scroll-root" : ""}`}>
 
       {/* 🌿 Background */}
       <Image

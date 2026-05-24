@@ -60,6 +60,13 @@ body.tg-webview {
   overscroll-behavior-y: none;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
+  padding-bottom: env(safe-area-inset-bottom);
+  scrollbar-width: none;
+}
+
+.tg-scroll-root::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 /*
   Avoid forcing GPU transforms on <body>; some mobile webviews (including
