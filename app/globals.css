@@ -76,5 +76,6 @@ body.tg-webview {
 
 .invite-scroll-root {
   min-height: 100dvh;
-  overflow: visible;
+  overflow-y: visible;
+  overflow-x: clip;
 }
