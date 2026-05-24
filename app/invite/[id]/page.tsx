@@ -53,7 +53,19 @@ function SectionFlower({ side = "left" }: { side?: "left" | "right" }) {
 }
 
 
-function StickyTopFloralFrame({ isPlaying, onToggleMusic }: { isPlaying: boolean; onToggleMusic: () => void }) {
+type MenuSection = {
+  id: string;
+  label: string;
+  icon: string;
+};
+
+function StickyTopFloralFrame({
+  isPlaying,
+  onToggleMusic,
+}: {
+  isPlaying: boolean;
+  onToggleMusic: () => void;
+}) {
   return (
     <div className="sticky top-0 z-30 px-3 pt-3">
       <div className="relative overflow-hidden rounded-full border border-white/70 bg-white/70 px-4 py-3 shadow-[0_10px_28px_rgba(74,84,53,0.18)] backdrop-blur-md">
@@ -71,6 +83,56 @@ function StickyTopFloralFrame({ isPlaying, onToggleMusic }: { isPlaying: boolean
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function BottomSectionMenu({
+  onMenuSelect,
+  menuItems,
+}: {
+  onMenuSelect: (sectionId: string) => void;
+  menuItems: MenuSection[];
+}) {
+  const [activeSection, setActiveSection] = React.useState(menuItems[0]?.id ?? "");
+
+  return (
+    <div className="fixed inset-x-3 bottom-5 z-40">
+      <nav
+        aria-label="Section navigation"
+        className="overflow-x-auto rounded-2xl border border-white/60 bg-white/90 px-2 py-2 shadow-[0_12px_28px_rgba(74,84,53,0.2)] backdrop-blur-md"
+      >
+        <ul className="flex min-w-max items-center gap-1.5">
+          {menuItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <li key={item.id} className="relative">
+                {isActive && (
+                  <motion.div
+                    layoutId="bottom-nav-active-pill"
+                    className="absolute inset-0 rounded-xl bg-[#9CAF88]/30"
+                    transition={{ type: "spring", stiffness: 380, damping: 28 }}
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveSection(item.id);
+                    onMenuSelect(item.id);
+                  }}
+                  aria-label={item.label}
+                  title={item.label}
+                  className={`relative z-10 rounded-xl px-3 py-2 text-lg leading-none transition ${
+                    isActive ? "text-[#4E563C]" : "text-[#5C6445] hover:bg-[#f6f8f2]"
+                  }`}
+                >
+                  <span aria-hidden>{item.icon}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </div>
   );
 }
@@ -190,6 +252,14 @@ export default function InvitePage() {
   const scrollRootRef = useTelegramScrollGuard(isTelegramWebView);
   const { id } = useParams<{ id: string }>();
   const guest = getGuestByInviteId(id);
+  const menuSections: MenuSection[] = [
+    { id: "invitation-hero", label: "Hero", icon: "🏠" },
+    { id: "wedding-details", label: "Details", icon: "💍" },
+    { id: "love-story", label: "Love Story", icon: "❤️" },
+    { id: "gallery", label: "Gallery", icon: "🖼️" },
+    { id: "location", label: "Location", icon: "📍" },
+    { id: "wedding-gift", label: "Gift", icon: "🎁" },
+  ];
 
   React.useEffect(() => {
     const audio = audioRef.current;
@@ -221,6 +291,11 @@ export default function InvitePage() {
     }
 
     audio.pause();
+  }, []);
+
+  const handleMenuSelect = React.useCallback((sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   if (!guest) {
@@ -266,7 +341,11 @@ export default function InvitePage() {
 
       <div className="absolute bottom-[-120px] right-[-120px] w-[320px] h-[320px] bg-[#9CAF88]/20 blur-[120px] rounded-full" />
 
-      <StickyTopFloralFrame isPlaying={isMusicPlaying} onToggleMusic={toggleMusic} />
+      <StickyTopFloralFrame
+        isPlaying={isMusicPlaying}
+        onToggleMusic={toggleMusic}
+      />
+      <BottomSectionMenu onMenuSelect={handleMenuSelect} menuItems={menuSections} />
       {!isTelegramWebView && <FloralFrame />}
       <audio ref={audioRef} loop><source src="/music.mp3" type="audio/mpeg" /></audio>
       {!isTelegramWebView && <FloatingFlowers />}
@@ -292,6 +371,7 @@ export default function InvitePage() {
 
         {/* 💚 Hero */}
         <motion.div
+          id="invitation-hero"
           variants={{
             hidden: { opacity: 0, y: 30 },
             visible: { opacity: 1, y: 0 }
@@ -326,6 +406,7 @@ export default function InvitePage() {
         </motion.div>
 
         <motion.div
+          id="wedding-details"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
@@ -454,7 +535,7 @@ export default function InvitePage() {
 
         {/* 💌 Love Story */}
         <Parallax speed={isTelegramWebView ? 0 : -10} disabled={isTelegramWebView}>
-          <section className="relative mt-10 overflow-hidden rounded-[30px] border border-white/45 px-8 py-10">
+          <section id="love-story" className="relative mt-10 overflow-hidden rounded-[30px] border border-white/45 px-8 py-10">
             <SectionFlower side="right" />
             <h2 className="text-center text-3xl text-[#535C39] leading-relaxed">
               Our Love Story
@@ -507,6 +588,7 @@ export default function InvitePage() {
 
         {/* 🖼 Gallery */}
         <motion.div
+          id="gallery"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
@@ -518,10 +600,13 @@ export default function InvitePage() {
 
         <WeddingTimeline />
 
-        <Location />
+        <div id="location">
+          <Location />
+        </div>
 
         {/* 🎁 Wedding Gift from Attendees */}
         <motion.section
+          id="wedding-gift"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
