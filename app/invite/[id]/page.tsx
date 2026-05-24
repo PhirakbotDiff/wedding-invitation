@@ -62,7 +62,14 @@ function StickyTopFloralFrame() {
         <div className="relative flex items-center justify-between">
           <AnimatedLeafCluster side="left" />
           <p className="px-3 text-center text-[11px] tracking-[4px] text-[#66724D] uppercase">Our Wedding Day</p>
-          <AnimatedLeafCluster side="right" />
+          <a
+            href="/music.mp3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border border-[#9CAF88]/60 bg-white/80 px-3 py-1 text-[10px] tracking-[2px] text-[#5C6445] uppercase transition hover:bg-white"
+          >
+            Open Music
+          </a>
         </div>
       </div>
     </div>
