@@ -53,13 +53,37 @@ function SectionFlower({ side = "left" }: { side?: "left" | "right" }) {
 }
 
 
-function StickyTopFloralFrame({ isPlaying, onToggleMusic }: { isPlaying: boolean; onToggleMusic: () => void }) {
+type MenuSection = {
+  id: string;
+  label: string;
+};
+
+function StickyTopFloralFrame({
+  isPlaying,
+  onToggleMusic,
+  onMenuSelect,
+  menuItems,
+}: {
+  isPlaying: boolean;
+  onToggleMusic: () => void;
+  onMenuSelect: (sectionId: string) => void;
+  menuItems: MenuSection[];
+}) {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
   return (
     <div className="sticky top-0 z-30 px-3 pt-3">
       <div className="relative overflow-hidden rounded-full border border-white/70 bg-white/70 px-4 py-3 shadow-[0_10px_28px_rgba(74,84,53,0.18)] backdrop-blur-md">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A67C52]/60 to-transparent" />
         <div className="relative flex items-center justify-between">
-          <AnimatedLeafCluster side="left" />
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            aria-label="Open section menu"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#9CAF88]/60 bg-white/85 text-[#5C6445] shadow-sm transition hover:bg-white"
+          >
+            <span aria-hidden>☰</span>
+          </button>
           <p className="px-3 text-center text-[11px] tracking-[4px] text-[#66724D] uppercase">Our Wedding Day</p>
           <button
             type="button"
@@ -71,6 +95,26 @@ function StickyTopFloralFrame({ isPlaying, onToggleMusic }: { isPlaying: boolean
           </button>
         </div>
       </div>
+      {isMenuOpen && (
+        <div className="mx-3 mt-2 rounded-2xl border border-white/60 bg-white/90 p-2 shadow-[0_12px_28px_rgba(74,84,53,0.2)] backdrop-blur-md">
+          <ul className="grid grid-cols-2 gap-2">
+            {menuItems.map((item) => (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onMenuSelect(item.id);
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full rounded-xl border border-[#d8decf] bg-white px-3 py-2 text-sm text-[#5C6445] transition hover:bg-[#f6f8f2]"
+                >
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
@@ -190,6 +234,14 @@ export default function InvitePage() {
   const scrollRootRef = useTelegramScrollGuard(isTelegramWebView);
   const { id } = useParams<{ id: string }>();
   const guest = getGuestByInviteId(id);
+  const menuSections: MenuSection[] = [
+    { id: "invitation-hero", label: "Hero" },
+    { id: "wedding-details", label: "Details" },
+    { id: "love-story", label: "Love Story" },
+    { id: "gallery", label: "Gallery" },
+    { id: "location", label: "Location" },
+    { id: "wedding-gift", label: "Gift" },
+  ];
 
   React.useEffect(() => {
     const audio = audioRef.current;
@@ -221,6 +273,11 @@ export default function InvitePage() {
     }
 
     audio.pause();
+  }, []);
+
+  const handleMenuSelect = React.useCallback((sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   if (!guest) {
@@ -266,7 +323,12 @@ export default function InvitePage() {
 
       <div className="absolute bottom-[-120px] right-[-120px] w-[320px] h-[320px] bg-[#9CAF88]/20 blur-[120px] rounded-full" />
 
-      <StickyTopFloralFrame isPlaying={isMusicPlaying} onToggleMusic={toggleMusic} />
+      <StickyTopFloralFrame
+        isPlaying={isMusicPlaying}
+        onToggleMusic={toggleMusic}
+        onMenuSelect={handleMenuSelect}
+        menuItems={menuSections}
+      />
       {!isTelegramWebView && <FloralFrame />}
       <audio ref={audioRef} loop><source src="/music.mp3" type="audio/mpeg" /></audio>
       {!isTelegramWebView && <FloatingFlowers />}
@@ -292,6 +354,7 @@ export default function InvitePage() {
 
         {/* 💚 Hero */}
         <motion.div
+          id="invitation-hero"
           variants={{
             hidden: { opacity: 0, y: 30 },
             visible: { opacity: 1, y: 0 }
@@ -326,6 +389,7 @@ export default function InvitePage() {
         </motion.div>
 
         <motion.div
+          id="wedding-details"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
@@ -454,7 +518,7 @@ export default function InvitePage() {
 
         {/* 💌 Love Story */}
         <Parallax speed={isTelegramWebView ? 0 : -10} disabled={isTelegramWebView}>
-          <section className="relative mt-10 overflow-hidden rounded-[30px] border border-white/45 px-8 py-10">
+          <section id="love-story" className="relative mt-10 overflow-hidden rounded-[30px] border border-white/45 px-8 py-10">
             <SectionFlower side="right" />
             <h2 className="text-center text-3xl text-[#535C39] leading-relaxed">
               Our Love Story
@@ -507,6 +571,7 @@ export default function InvitePage() {
 
         {/* 🖼 Gallery */}
         <motion.div
+          id="gallery"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
@@ -518,10 +583,13 @@ export default function InvitePage() {
 
         <WeddingTimeline />
 
-        <Location />
+        <div id="location">
+          <Location />
+        </div>
 
         {/* 🎁 Wedding Gift from Attendees */}
         <motion.section
+          id="wedding-gift"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0 }
