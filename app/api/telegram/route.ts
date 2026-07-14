@@ -5,7 +5,7 @@ const MINI_APP_SHORT_NAME = process.env.TELEGRAM_MINI_APP_SHORT_NAME!;
 const BOT_USERNAME = process.env.TELEGRAM_BOT_USERNAME!;
 
 async function sendMessage(chatId: number, text: string, replyMarkup?: object) {
-  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+  const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -14,6 +14,10 @@ async function sendMessage(chatId: number, text: string, replyMarkup?: object) {
       reply_markup: replyMarkup,
     }),
   });
+  const data = await res.json();
+  if (!data.ok) {
+    console.error("Telegram sendMessage failed:", JSON.stringify(data));
+  }
 }
 
 export async function POST(req: Request) {
