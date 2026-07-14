@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLang } from "@/app/context/LanguageContext";
+import { t } from "@/app/lib/i18n";
 
 export default function OpeningScreen({
   onOpen,
@@ -10,6 +12,9 @@ export default function OpeningScreen({
   onOpen: () => void;
   guestName?: string;
 }) {
+  const { lang } = useLang();
+  const tx = t(lang);
+
   return (
     <motion.div
       initial={{ opacity: 1 }}
@@ -33,7 +38,7 @@ export default function OpeningScreen({
           transition={{ duration: 0.8 }}
           className="mb-3 text-xs tracking-[5px] text-[#8A9273] uppercase"
         >
-          The Wedding Invitation
+          {tx.wedding_invitation}
         </motion.p>
 
         <motion.h1
@@ -76,7 +81,10 @@ export default function OpeningScreen({
           transition={{ duration: 0.9, delay: 0.15 }}
           className="mb-2 text-[#6D7456]"
         >
-          សូមស្វាគមន៍ <br /><br /><span className="text-[#535C39] text-xl">{guestName ?? "Guest"}</span> <br /><br /> អ្នកត្រូវបានស្វាគមន៍យ៉ាងខ្លាំង។
+          {tx.welcome} <br /><br />
+          <span className="text-[#535C39] text-xl">{guestName ?? "Guest"}</span>
+          <br /><br />
+          {tx.guest_welcome_msg}
         </motion.p>
 
         <motion.p
@@ -85,7 +93,7 @@ export default function OpeningScreen({
           transition={{ duration: 1, delay: 0.22 }}
           className="mb-8 text-[#6D7456]"
         >
-          Save the Date • <span className="text-[#A67C52]">16/Jan/2027</span>
+          {tx.save_the_date} • <span className="text-[#A67C52]">16/Jan/2027</span>
         </motion.p>
 
         <motion.button
@@ -94,7 +102,7 @@ export default function OpeningScreen({
           onClick={onOpen}
           className="rounded-full bg-gradient-to-r from-[#A8B58A] to-[#7E9270] px-10 py-4 text-white shadow-[0_12px_30px_rgba(0,0,0,0.18)] transition duration-300"
         >
-          Open Invitation
+          {tx.open_invitation}
         </motion.button>
       </div>
 
